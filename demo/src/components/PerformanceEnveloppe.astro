@@ -1,0 +1,142 @@
+---
+import {
+    PerformanceMurs,
+    PerformancePlanchersBas,
+    PerformancePlanchersHauts,
+    PerformanceBaies,
+    PerformancePortes,
+    PerformancePontsThermiques,
+    Enveloppe,
+} from "~";
+
+import Card from "./Card.astro";
+import CardHeader from "./CardHeader.astro";
+import Caption from "./Caption.astro";
+import DialogButton from "./DialogButton.astro";
+
+interface Props {
+    murs: Array<Enveloppe.Mur.Mur>;
+    planchers_bas: Array<Enveloppe.PlancherBas.PlancherBas>;
+    planchers_hauts: Array<Enveloppe.PlancherHaut.PlancherHaut>;
+    baies: Array<Enveloppe.Baie.Baie>;
+    portes: Array<Enveloppe.Porte.Porte>;
+    ponts_thermiques: Array<Enveloppe.PontThermique.PontThermique>;
+}
+
+const {
+    murs,
+    planchers_bas,
+    planchers_hauts,
+    baies,
+    portes,
+    ponts_thermiques,
+} = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Performance de l'enveloppe">
+        <DialogButton name="performance-enveloppe" />
+    </CardHeader>
+
+    <div class="grid gap-6">
+        <div>
+            <div class="tabs mb-6 flex">
+                <div class="tab rounded-md active" data-name="murs">Murs</div>
+                <div class="tab rounded-md" data-name="planchers_bas">
+                    Planchers bas
+                </div>
+                <div class="tab rounded-md" data-name="planchers_hauts">
+                    Planchers haut
+                </div>
+                <div class="tab rounded-md" data-name="baies">Baies</div>
+                <div class="tab rounded-md" data-name="portes">Portes</div>
+                <div class="tab rounded-md" data-name="ponts_thermiques">
+                    Ponts thermiques
+                </div>
+            </div>
+
+            <div class="tab-window active" data-name="murs">
+                <PerformanceMurs murs={murs} />
+            </div>
+            <div class="tab-window" data-name="planchers_bas">
+                <PerformancePlanchersBas planchers_bas={planchers_bas} />
+            </div>
+            <div class="tab-window" data-name="planchers_hauts">
+                <PerformancePlanchersHauts planchers_hauts={planchers_hauts} />
+            </div>
+            <div class="tab-window" data-name="baies">
+                <PerformanceBaies baies={baies} />
+            </div>
+            <div class="tab-window" data-name="portes">
+                <PerformancePortes portes={portes} />
+            </div>
+            <div class="tab-window" data-name="ponts_thermiques">
+                <PerformancePontsThermiques
+                    ponts_thermiques={ponts_thermiques}
+                />
+            </div>
+        </div>
+
+        <Caption>
+            <ul>
+                <li class="mb-2"><b>SDEP :</b> Surface déperditive en m²</li>
+                <li class="mb-2">
+                    <b>U :</b> Coefficient de transmission thermique en W/m².K
+                </li>
+                <li><b>DP :</b> Déperditions thermiques en W/K</li>
+            </ul>
+        </Caption>
+    </div>
+</Card>
+
+<script>
+    const tabs = document.querySelectorAll(".tab") ?? [];
+    const windows = document.querySelectorAll(".tab-window") ?? [];
+
+    const handle = (target: string) => {
+        [...tabs, ...windows].forEach((element) => {
+            const name = element.getAttribute("data-name");
+            element.classList.remove("active");
+
+            if (name === target) {
+                element.classList.add("active");
+            }
+        });
+    };
+
+    tabs.forEach((item) => {
+        item.addEventListener("click", () => {
+            const target = item.getAttribute("data-name");
+
+            if (target) {
+                handle(target);
+            }
+        });
+    });
+</script>
+
+<style>
+    .tab-window:not(.active) {
+        display: none;
+    }
+    .tab {
+        padding: 0.8rem;
+        margin: 4px 0;
+        font-weight: 600;
+        text-transform: uppercase;
+        background-color: var(--bg);
+        border: solid 1px var(--border);
+        color: var(--disabled);
+    }
+    .tab:not(:last-child) {
+        margin-right: 1rem;
+    }
+    .tab:hover {
+        cursor: pointer;
+    }
+    .tab.active {
+        background-color: var(--bg);
+        border-color: var(--border);
+        color: var(--accent);
+    }
+</style>

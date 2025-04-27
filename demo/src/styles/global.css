@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --text: #1A1A1A;
+  --bg: #EDF1F6;
+  --bg-disabled: #F0F8FF;
+  --accent: #2C3EC4;
+  --disabled: #6B7280;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Poppins';
+}
+
+* {
+  font-size: 0.9rem;
+  line-height: 0.9rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+th,
+td,
+svg {
+  color: #1A1A1A;
+}

@@ -1,0 +1,32 @@
+---
+import { Usage } from "../data/Common";
+import Chauffage from "../icons/chauffage.svg";
+import ECS from "../icons/ecs.svg";
+import Refroidissement from "../icons/refroidissement.svg";
+import Eclairage from "../icons/eclairage.svg";
+import Auxiliaire from "../icons/auxiliaire.svg";
+
+interface Props {
+    usage: Usage;
+    size?: number;
+}
+
+const { usage, size = 18 } = Astro.props;
+
+const Icon = ((usage) => {
+    switch (usage) {
+        case Usage.chauffage:
+            return Chauffage;
+        case Usage.ecs:
+            return ECS;
+        case Usage.refroidissement:
+            return Refroidissement;
+        case Usage.eclairage:
+            return Eclairage;
+        case Usage.auxiliaire:
+            return Auxiliaire;
+    }
+})(usage);
+---
+
+<Icon width={size} height={size} />

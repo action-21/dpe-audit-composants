@@ -1,0 +1,31 @@
+---
+import Card from "./Card.astro";
+import CardHeader from "./CardHeader.astro";
+import Caption from "./Caption.astro";
+import DialogButton from "./DialogButton.astro";
+import { ConsommationsEnergie, ConsommationsUsage, Common } from "~";
+
+interface Props {
+    consommations: Common.Consommation[];
+}
+const { consommations } = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Répartition des consommations">
+        <DialogButton name="repartition-consommations" />
+    </CardHeader>
+
+    <div class="grid gap-6">
+        <ConsommationsUsage consommations={consommations} />
+
+        <ConsommationsEnergie consommations={consommations} />
+
+        <Caption>
+            <ul>
+                <li><b>EF :</b> Consommation d'énergie finale en kWh/an</li>
+                <li><b>EP :</b> Consommation d'énergie primaire en kWh/an</li>
+            </ul>
+        </Caption>
+    </div>
+</Card>

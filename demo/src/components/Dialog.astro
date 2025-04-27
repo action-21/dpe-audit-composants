@@ -1,0 +1,92 @@
+---
+import Icon from "../icons/xmark.svg";
+import Card from "./Card.astro";
+
+interface Props {
+    name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<div data-name={name} class="dialog flex">
+    <div class="content">
+        <Card>
+            <button class="dialog-close-button button">
+                <Icon class="icon" width={18} height={18} />
+            </button>
+            <slot />
+        </Card>
+    </div>
+</div>
+
+<style>
+    .dialog {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+
+        &.active {
+            display: block;
+        }
+        button {
+            position: absolute;
+            z-index: 100;
+            padding: 6px;
+            top: 10px;
+            right: 10px;
+
+            &:hover {
+                cursor: pointer;
+            }
+            .icon {
+                margin: 0 auto;
+            }
+        }
+        .content {
+            position: fixed;
+            width: 90%;
+            max-width: 720px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+        p {
+            margin: 0.5rem 0;
+        }
+    }
+</style>
+
+<script>
+    import { $dialogs, close } from "../stores/ui.js";
+
+    $dialogs.subscribe((state) => {
+        document.querySelectorAll(".dialog").forEach((element) => {
+            const name = element.getAttribute("data-name");
+
+            if (false === state) {
+                element.classList.remove("active");
+            } else if (name === state) {
+                element.classList.add("active");
+            }
+        });
+    });
+
+    document.querySelectorAll(".dialog-close-button").forEach((button) => {
+        button.addEventListener("click", () => close());
+    });
+</script>

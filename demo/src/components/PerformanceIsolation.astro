@@ -1,0 +1,22 @@
+---
+import { Enveloppe, IndicateurIsolationEnveloppe } from "~";
+import Card from "./Card.astro";
+import CardHeader from "./CardHeader.astro";
+import DialogButton from "./DialogButton.astro";
+
+interface Props {
+    performance: Enveloppe.Performance;
+}
+
+const { performance } = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Performance de l'isolation">
+        <DialogButton name="performance-isolation" />
+    </CardHeader>
+
+    <div class="max-w-[200px] m-auto">
+        <IndicateurIsolationEnveloppe performance={performance} />
+    </div>
+</Card>

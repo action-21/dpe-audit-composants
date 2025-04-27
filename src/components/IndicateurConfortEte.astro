@@ -1,0 +1,114 @@
+---
+import { ConfortEte, confortEteToString } from "../data/Enveloppe";
+import IconBon from "../icons/smiley-happy.svg";
+import IconMoyen from "../icons/smiley-neutral.svg";
+import IconInsuffisant from "../icons/smiley-sad.svg";
+
+interface Props {
+    confort_ete: ConfortEte;
+}
+
+const { confort_ete } = Astro.props;
+
+const enums: Array<ConfortEte> = [
+    ConfortEte.bon,
+    ConfortEte.moyen,
+    ConfortEte.insuffisant,
+];
+
+const data = enums.map((item) => {
+    return {
+        value: item,
+        text: confortEteToString(item),
+        active: item === confort_ete,
+    };
+});
+
+const Icon = ((confort_ete: ConfortEte) => {
+    switch (confort_ete) {
+        case ConfortEte.bon:
+            return IconBon;
+        case ConfortEte.moyen:
+            return IconMoyen;
+        case ConfortEte.insuffisant:
+            return IconInsuffisant;
+    }
+})(confort_ete);
+---
+
+<div data-performance={confort_ete}>
+    {
+        data.map((item) => (
+            <div class={item.active ? "item active" : "item"}>
+                {item.active && (
+                    <div class="icon">
+                        <Icon width={72} height={72} />
+                    </div>
+                )}
+                <div class="label">{item.text}</div>
+            </div>
+        ))
+    }
+</div>
+
+<style>
+    [data-performance="bon"] .active {
+        background-color: #dbede3;
+
+        .label {
+            background-color: #2caf85;
+        }
+        .icon svg {
+            filter: invert(61%) sepia(20%) saturate(1258%) hue-rotate(110deg)
+                brightness(90%) contrast(92%);
+        }
+    }
+    [data-performance="moyen"] .active {
+        background-color: #fce5cd;
+
+        .label {
+            background-color: #f49838;
+        }
+        .icon svg {
+            filter: invert(67%) sepia(79%) saturate(1135%) hue-rotate(334deg)
+                brightness(100%) contrast(92%);
+        }
+    }
+    [data-performance="insuffisant"] .active {
+        background-color: #f8c8c8;
+
+        .label {
+            background-color: #e52322;
+        }
+        .icon svg {
+            filter: invert(38%) sepia(62%) saturate(6963%) hue-rotate(347deg)
+                brightness(90%) contrast(100%);
+        }
+    }
+    .item {
+        background-color: var(--bg-disabled);
+        text-align: center;
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+        .icon {
+            padding: 1rem;
+
+            svg {
+                margin: 0 auto;
+            }
+        }
+        .label {
+            padding: 0.5rem;
+            color: var(--disabled);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    }
+    .active {
+        .label {
+            color: #ffffff;
+        }
+    }
+</style>

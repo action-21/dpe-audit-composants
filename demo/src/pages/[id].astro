@@ -1,0 +1,105 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import CardHeader from "../components/CardHeader.astro";
+import Dialog from "src/components/Dialog.astro";
+import Consommations from "../components/Consommations.astro";
+import PerformanceEnergetique from "../components/PerformanceEnergetique.astro";
+import PerformanceClimatique from "../components/PerformanceClimatique.astro";
+import PerformanceEnveloppe from "../components/PerformanceEnveloppe.astro";
+import RepartitionDeperditions from "../components/RepartitionDeperditions.astro";
+import PerformanceIsolation from "../components/PerformanceIsolation.astro";
+import ConfortEte from "../components/ConfortEte.astro";
+import PerformanceClimatiqueContent from "../data/infos/performance-climatique.md";
+import PerformanceEnergetiqueContent from "../data/infos/performance-energetique.md";
+import RepartitionConsommationsContent from "../data/infos/repartition-consommations.md";
+import RepartitionDeperditionsContent from "../data/infos/repartition-deperditions.md";
+import { getAuditIds, getAuditById } from "src/lib/audit";
+import InformationLogement from "~/src/components/InformationLogement.astro";
+
+export async function getStaticPaths() {
+	const ids = await getAuditIds();
+
+	return ids.map((id) => ({
+		params: { id },
+	}));
+}
+
+const { id } = Astro.params;
+const audit = await getAuditById(id);
+---
+
+<Layout>
+	<header>
+		<Card>
+			<h1>Audit énergétique</h1>
+		</Card>
+	</header>
+
+	<main>
+		<div
+			class="grid auto-rows-min auto-cols-min grid-cols-3 grid-rows-1 gap-4"
+		>
+			<div class="grid auto-rows-min gap-4 col-span-2">
+				<Card>
+					<InformationLogement
+						batiment={audit.batiment}
+						adresse={audit.adresse}
+					/>
+				</Card>
+
+				<Consommations consommations={audit.data.consommations} />
+
+				<PerformanceEnveloppe
+					murs={audit.enveloppe.murs}
+					planchers_bas={audit.enveloppe.planchers_bas}
+					planchers_hauts={audit.enveloppe.planchers_hauts}
+					baies={audit.enveloppe.baies}
+					portes={audit.enveloppe.portes}
+					ponts_thermiques={audit.enveloppe.ponts_thermiques}
+				/>
+			</div>
+			<div class="grid auto-rows-min grid-cols-1 gap-4">
+				<PerformanceEnergetique
+					etiquette_energie={audit.data.etiquette_energie}
+					cef={audit.data.cef}
+					cep={audit.data.cep}
+				/>
+
+				<PerformanceClimatique
+					etiquette_climat={audit.data.etiquette_climat}
+					eges={audit.data.eges}
+				/>
+
+				<RepartitionDeperditions
+					deperditions={audit.enveloppe.data.deperditions}
+				/>
+
+				<PerformanceIsolation
+					performance={audit.enveloppe.data.performance}
+				/>
+
+				<ConfortEte confort_ete={audit.enveloppe.data.confort_ete} />
+			</div>
+		</div>
+	</main>
+
+	<Dialog name="repartition-consommations">
+		<RepartitionConsommationsContent />
+	</Dialog>
+	<Dialog name="performance-climatique">
+		<PerformanceClimatiqueContent />
+	</Dialog>
+	<Dialog name="performance-energetique">
+		<PerformanceEnergetiqueContent />
+	</Dialog>
+	<Dialog name="repartition-deperditions">
+		<RepartitionDeperditionsContent />
+	</Dialog>
+</Layout>
+
+<style>
+	header {
+		margin-bottom: 2rem;
+	}
+</style>

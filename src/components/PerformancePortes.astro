@@ -1,0 +1,127 @@
+---
+import { Porte } from "../data/Enveloppe";
+
+interface Props {
+    portes: Array<Porte.Porte>;
+}
+
+const { portes } = Astro.props;
+
+const total = {
+    sdep: portes.reduce((acc, item) => acc + item.data.sdep, 0),
+    dp: portes.reduce((acc, item) => acc + item.data.dp, 0),
+};
+
+const data = portes
+    .map((item) => {
+        return {
+            description: Porte.toString(item),
+            sdep: item.data.sdep,
+            u: item.data.u,
+            performance: item.data.performance,
+            dp: item.data.dp,
+            part: (item.data.dp / total.dp) * 100,
+        };
+    })
+    .sort((a, b) => (a.dp > b.dp ? -1 : 1));
+---
+
+<table>
+    <thead>
+        <tr>
+            <th class="grow left">Description</th>
+            <th>U</th>
+            <th>SDEP</th>
+            <th>DP</th>
+            <th>Part</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {
+            data.map((item) => (
+                <tr>
+                    <td class="grow left">
+                        {item.description.split('\n').map((line) => (
+                            <p>{line}</p>
+                        ))}
+                    </td>
+                    <td data-performance={item.performance}>
+                        <span>{item.u.toFixed(2)}</span>
+                    </td>
+                    <td>{item.sdep.toFixed(2)}</td>
+                    <td>{item.dp.toFixed(2)}</td>
+                    <td>
+                        <b>{item.part.toFixed(2)} %</b>
+                    </td>
+                </tr>
+            ))
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+            <td class="left"><b>Total</b></td>
+            <td><b>-</b></td>
+            <td><b>{total.sdep.toFixed(2)}</b></td>
+            <td><b>{total.dp.toFixed(2)}</b></td>
+            <td><b>100 %</b></td>
+        </tr>
+    </tfoot>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        table-layout: auto;
+        border-collapse: collapse;
+    }
+    th {
+        text-transform: uppercase;
+    }
+    th,
+    td {
+        padding: 8px 15px;
+        white-space: nowrap;
+        text-align: center;
+
+        &:first-child {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        &.grow {
+            width: 100%;
+        }
+
+        &.left {
+            text-align: left;
+        }
+
+        p:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+    b {
+        font-weight: 600;
+    }
+    tbody td {
+        span {
+            padding: 0.3rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        &[data-performance="tres_bonne"] span {
+            background-color: #2caf85;
+        }
+        &[data-performance="bonne"] span {
+            background-color: #a5cc74;
+        }
+        &[data-performance="moyenne"] span {
+            background-color: #f49838;
+        }
+        &[data-performance="insuffisante"] span {
+            background-color: #e52322;
+        }
+    }
+</style>

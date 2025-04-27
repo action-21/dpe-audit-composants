@@ -1,0 +1,46 @@
+---
+import { Audit, EtiquetteClimat } from "~";
+import Card from "./Card.astro";
+import CardHeader from "./CardHeader.astro";
+import DialogButton from "./DialogButton.astro";
+
+interface Props {
+    etiquette_climat: Audit.EtiquetteClimat;
+    eges: number;
+}
+
+const { etiquette_climat, eges } = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Performance climatique">
+        <DialogButton name="performance-climatique" />
+    </CardHeader>
+
+    <div class="flex flex-nowrap items-center">
+        <div class="grow max-w-[200px]">
+            <EtiquetteClimat etiquette_climat={etiquette_climat} />
+        </div>
+
+        <div class="grow">
+            <div class="text-center whitespace-nowrap">
+                <div class="uppercase mb-2">Emissions de CO2</div>
+                <div class="font-semibold">
+                    {eges.toFixed()} kgCO2/m²/an
+                </div>
+            </div>
+        </div>
+    </div>
+</Card>
+
+<style>
+    .data {
+        text-align: center;
+    }
+    .data-title {
+        text-transform: uppercase;
+    }
+    .data-value {
+        font-weight: 600;
+    }
+</style>

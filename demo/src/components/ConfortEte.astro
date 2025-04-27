@@ -1,0 +1,19 @@
+---
+import { Enveloppe, IndicateurConfortEte } from "~";
+import Card from "./Card.astro";
+import CardHeader from "./CardHeader.astro";
+
+interface Props {
+    confort_ete: Enveloppe.ConfortEte;
+}
+
+const { confort_ete } = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Confort d'été" />
+
+    <div class="max-w-[200px] m-auto">
+        <IndicateurConfortEte confort_ete={confort_ete} />
+    </div>
+</Card>

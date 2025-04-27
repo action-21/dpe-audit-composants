@@ -1,0 +1,21 @@
+{
+  "name": "dpe-audit-component",
+  "type": "module",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "src",
+    "index.ts"
+  ],
+  "scripts": {
+    "dev": "cd demo && astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.5.3"
+  }
+}

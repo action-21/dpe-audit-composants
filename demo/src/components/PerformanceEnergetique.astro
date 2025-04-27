@@ -1,0 +1,43 @@
+---
+import Card from "./Card.astro";
+import CardHeader from "./CardHeader.astro";
+import { Audit, EtiquetteEnergie } from "~";
+import DialogButton from "./DialogButton.astro";
+
+interface Props {
+    etiquette_energie: Audit.EtiquetteEnergie;
+    cef: number;
+    cep: number;
+}
+
+const { etiquette_energie, cep, cef } = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Performance énergétique">
+        <DialogButton name="performance-energetique" />
+    </CardHeader>
+
+    <div class="flex flex-nowrap items-center">
+        <div class="grow max-w-[200px]">
+            <EtiquetteEnergie
+                etiquette_energie={etiquette_energie}
+            />
+        </div>
+
+        <div class="grow">
+            <div class="mb-6 text-center whitespace-nowrap">
+                <div class="uppercase mb-2">Consommation finale</div>
+                <div class="font-semibold">
+                    {cef.toFixed()} kWh<sub>ef</sub>/m²/an
+                </div>
+            </div>
+            <div class="text-center whitespace-nowrap">
+                <div class="uppercase mb-2">Consommation primaire</div>
+                <div class="font-semibold">
+                    {cep.toFixed()} kWh<sub>ep</sub>/m²/an
+                </div>
+            </div>
+        </div>
+    </div>
+</Card>

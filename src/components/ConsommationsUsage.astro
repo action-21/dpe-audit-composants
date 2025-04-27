@@ -1,0 +1,116 @@
+---
+import Icon from "./IconUsage.astro";
+import {
+    type Consommation,
+    type Scenario,
+    usageToString,
+} from "../data/Common";
+
+interface Props {
+    consommations: Consommation[];
+    scenario?: Scenario;
+}
+
+const { consommations, scenario = "conventionnel" } = Astro.props;
+
+const data = consommations.filter((item) => item.scenario === scenario);
+
+const usages = [...new Set(data.map((item) => item.usage))];
+
+const total = {
+    cef: data.reduce((acc, item) => acc + item.cef, 0),
+    cep: data.reduce((acc, item) => acc + item.cep, 0),
+};
+
+const tableData = usages
+    .map((usage) => {
+        const cef = data
+            .filter((item) => item.usage === usage)
+            .reduce((acc, item) => acc + item.cef, 0);
+
+        const cep = data
+            .filter((item) => item.usage === usage)
+            .reduce((acc, item) => acc + item.cep, 0);
+
+        const part = (cef / total.cef) * 100;
+
+        return {
+            usage: usage,
+            cep: cep,
+            cef: cef,
+            part: part,
+        };
+    })
+    .sort((a, b) => (a.cef > b.cef ? -1 : 1));
+---
+
+<table>
+    <thead>
+        <tr>
+            <th class="left" colspan="2">Poste</th>
+            <th>EP</th>
+            <th>EF</th>
+            <th>Part</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {
+            tableData.map((item) => (
+                <tr>
+                    <td>
+                        <Icon usage={item.usage} />
+                    </td>
+                    <td class="left grow">
+                        <b>{usageToString(item.usage)}</b>
+                    </td>
+                    <td>{Math.round(item.cef).toLocaleString()}</td>
+                    <td>{Math.round(item.cep).toLocaleString()}</td>
+                    <td>
+                        <b>{Math.round(item.part)} %</b>
+                    </td>
+                </tr>
+            ))
+        }
+
+        <tr>
+            <td class="left" colspan="2"><b>Total</b></td>
+            <td>{Math.round(total.cef).toLocaleString()}</td>
+            <td>{Math.round(total.cep).toLocaleString()}</td>
+            <td><b>100 %</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        table-layout: auto;
+        border-collapse: collapse;
+    }
+    th {
+        text-transform: uppercase;
+    }
+    th,
+    td {
+        padding: 5px 15px;
+        white-space: nowrap;
+        text-align: center;
+    }
+    th:first-child,
+    td:first-child {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    th.grow,
+    td.grow {
+        width: 100%;
+    }
+    th.left,
+    td.left {
+        text-align: left;
+    }
+    b {
+        font-weight: 600;
+    }
+</style>

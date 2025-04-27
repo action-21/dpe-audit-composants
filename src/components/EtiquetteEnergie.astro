@@ -1,0 +1,44 @@
+---
+import { EtiquetteEnergie as EtiquetteEnergieType } from "../data/Audit";
+import EtiquetteEnergieA from "../images/etiquette-energie/etiquette-energie-a.svg";
+import EtiquetteEnergieB from "../images/etiquette-energie/etiquette-energie-b.svg";
+import EtiquetteEnergieC from "../images/etiquette-energie/etiquette-energie-c.svg";
+import EtiquetteEnergieD from "../images/etiquette-energie/etiquette-energie-d.svg";
+import EtiquetteEnergieE from "../images/etiquette-energie/etiquette-energie-e.svg";
+import EtiquetteEnergieF from "../images/etiquette-energie/etiquette-energie-f.svg";
+import EtiquetteEnergieG from "../images/etiquette-energie/etiquette-energie-g.svg";
+
+interface Props {
+    etiquette_energie: EtiquetteEnergieType;
+}
+
+const { etiquette_energie } = Astro.props;
+
+const Icon = ((etiquette_energie) => {
+    switch (etiquette_energie) {
+        case EtiquetteEnergieType.A:
+            return EtiquetteEnergieA;
+        case EtiquetteEnergieType.B:
+            return EtiquetteEnergieB;
+        case EtiquetteEnergieType.C:
+            return EtiquetteEnergieC;
+        case EtiquetteEnergieType.D:
+            return EtiquetteEnergieD;
+        case EtiquetteEnergieType.E:
+            return EtiquetteEnergieE;
+        case EtiquetteEnergieType.F:
+            return EtiquetteEnergieF;
+        case EtiquetteEnergieType.G:
+            return EtiquetteEnergieG;
+    }
+})(etiquette_energie);
+---
+
+<Icon class="icon" />
+
+<style>
+    .icon {
+        width: 100%;
+        height: auto;
+    }
+</style>

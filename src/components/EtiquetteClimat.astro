@@ -1,0 +1,44 @@
+---
+import { EtiquetteClimat as EtiquetteClimatType } from "../data/Audit";
+import EtiquetteClimatA from "../images/etiquette-climat/etiquette-climat-a.svg";
+import EtiquetteClimatB from "../images/etiquette-climat/etiquette-climat-b.svg";
+import EtiquetteClimatC from "../images/etiquette-climat/etiquette-climat-c.svg";
+import EtiquetteClimatD from "../images/etiquette-climat/etiquette-climat-d.svg";
+import EtiquetteClimatE from "../images/etiquette-climat/etiquette-climat-e.svg";
+import EtiquetteClimatF from "../images/etiquette-climat/etiquette-climat-f.svg";
+import EtiquetteClimatG from "../images/etiquette-climat/etiquette-climat-g.svg";
+
+interface Props {
+    etiquette_climat: EtiquetteClimatType;
+}
+
+const { etiquette_climat } = Astro.props;
+
+const Icon = ((etiquette_climat) => {
+    switch (etiquette_climat) {
+        case EtiquetteClimatType.A:
+            return EtiquetteClimatA;
+        case EtiquetteClimatType.B:
+            return EtiquetteClimatB;
+        case EtiquetteClimatType.C:
+            return EtiquetteClimatC;
+        case EtiquetteClimatType.D:
+            return EtiquetteClimatD;
+        case EtiquetteClimatType.E:
+            return EtiquetteClimatE;
+        case EtiquetteClimatType.F:
+            return EtiquetteClimatF;
+        case EtiquetteClimatType.G:
+            return EtiquetteClimatG;
+    }
+})(etiquette_climat);
+---
+
+<Icon class="icon" />
+
+<style>
+    .icon {
+        width: 100%;
+        height: auto;
+    }
+</style>
