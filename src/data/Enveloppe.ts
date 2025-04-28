@@ -24,7 +24,6 @@ export interface EnveloppeData {
 export interface Paroi {
   id: string
   description: string
-  type: TypeParoi
 }
 
 export interface ParoiOpaque extends Paroi {

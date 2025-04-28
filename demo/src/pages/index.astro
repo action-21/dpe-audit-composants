@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
-import CardHeader from "../components/CardHeader.astro";
 import Dialog from "src/components/Dialog.astro";
 import Consommations from "../components/Consommations.astro";
 import PerformanceEnergetique from "../components/PerformanceEnergetique.astro";
@@ -14,19 +13,10 @@ import PerformanceClimatiqueContent from "../data/infos/performance-climatique.m
 import PerformanceEnergetiqueContent from "../data/infos/performance-energetique.md";
 import RepartitionConsommationsContent from "../data/infos/repartition-consommations.md";
 import RepartitionDeperditionsContent from "../data/infos/repartition-deperditions.md";
-import { getAuditIds, getAuditById } from "src/lib/audit";
 import InformationLogement from "~/src/components/InformationLogement.astro";
+import { useFixture } from "src/fixtures/fixtures";
 
-export async function getStaticPaths() {
-	const ids = await getAuditIds();
-
-	return ids.map((id) => ({
-		params: { id },
-	}));
-}
-
-const { id } = Astro.params;
-const audit = await getAuditById(id);
+const audit = useFixture();
 ---
 
 <Layout>
