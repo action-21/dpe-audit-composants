@@ -1,5 +1,5 @@
 {
-  "name": "dpe-audit-component",
+  "name": "dpe-audit-ui",
   "type": "module",
   "version": "0.1.3",
   "exports": {
