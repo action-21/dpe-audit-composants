@@ -1,8 +1,7 @@
 ---
 import { Audit, EtiquetteClimat } from "~";
-import Card from "./Card.astro";
-import CardHeader from "./CardHeader.astro";
-import DialogButton from "./DialogButton.astro";
+import { Card, CardHeader } from "./Card";
+import { DialogButton } from "./Dialog";
 
 interface Props {
     etiquette_climat: Audit.EtiquetteClimat;
@@ -18,15 +17,16 @@ const { etiquette_climat, eges } = Astro.props;
     </CardHeader>
 
     <div class="flex flex-nowrap items-center">
-        <div class="grow max-w-[200px]">
+        <div class="w-[200px]">
             <EtiquetteClimat etiquette_climat={etiquette_climat} />
         </div>
 
         <div class="grow">
-            <div class="text-center whitespace-nowrap">
-                <div class="uppercase mb-2">Emissions de CO2</div>
-                <div class="font-semibold">
-                    {eges.toFixed()} kgCO2/m²/an
+            <div class="stats stats-vertical">
+                <div class="stat">
+                    <div class="stat-title">Emissions de CO2</div>
+                    <div class="stat-value text-primary">{eges.toFixed()}</div>
+                    <div class="stat-desc">kgCO2/m²/an</div>
                 </div>
             </div>
         </div>

@@ -1,8 +1,7 @@
 ---
 import { Enveloppe, SchemaRepartitionDeperditions } from "~";
-import Card from "./Card.astro";
-import CardHeader from "./CardHeader.astro";
-import DialogButton from "./DialogButton.astro";
+import { Card, CardHeader } from "./Card";
+import { DialogButton } from "./Dialog";
 
 interface Props {
     deperditions: Enveloppe.Deperdition[];
@@ -16,5 +15,7 @@ const { deperditions } = Astro.props;
         <DialogButton name="repartition-deperditions" />
     </CardHeader>
 
-    <SchemaRepartitionDeperditions deperditions={deperditions} />
+    <div class="max-w-[380px] m-auto">
+        <SchemaRepartitionDeperditions deperditions={deperditions} />
+    </div>
 </Card>

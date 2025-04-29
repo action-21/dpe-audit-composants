@@ -7,11 +7,16 @@ import {
 import Icon from "./IconEnergie.astro";
 
 interface Props {
+    className?: string;
     consommations: Consommation[];
     scenario?: Scenario;
 }
 
-const { consommations, scenario = "conventionnel" } = Astro.props;
+const {
+    consommations,
+    scenario = "conventionnel",
+    className = "",
+} = Astro.props;
 
 const data = consommations.filter((item) => item.scenario === scenario);
 
@@ -44,10 +49,10 @@ const tableData = energies
     .sort((a, b) => (a.cef < b.cef ? -1 : 1));
 ---
 
-<table>
+<table class={className}>
     <thead>
         <tr>
-            <th class="left" colspan="2">Energie</th>
+            <th class="text-left" colspan="2">Energie</th>
             <th>EP</th>
             <th>EF</th>
             <th>Part</th>
@@ -61,58 +66,57 @@ const tableData = energies
                     <td>
                         <Icon energie={item.energie} />
                     </td>
-                    <td class="left grow">
-                        <b>{energieToString(item.energie)}</b>
+                    <td class="grow text-left whitespace-nowrap">
+                        {energieToString(item.energie)}
                     </td>
-                    <td>{Math.round(item.cef).toLocaleString()}</td>
-                    <td>{Math.round(item.cep).toLocaleString()}</td>
-                    <td>
-                        <b>{Math.round(item.part)} %</b>
+                    <td class="whitespace-nowrap">
+                        {Math.round(item.cef).toLocaleString()}
+                    </td>
+                    <td class="whitespace-nowrap">
+                        {Math.round(item.cep).toLocaleString()}
+                    </td>
+                    <td class="whitespace-nowrap font-semibold">
+                        {Math.round(item.part)} %
                     </td>
                 </tr>
             ))
         }
-
-        <tr>
-            <td class="left" colspan="2"
-                ><b>Total</b>
-                <td>{Math.round(total.cef).toLocaleString()}</td>
-                <td>{Math.round(total.cep).toLocaleString()}</td>
-                <td><b>100 %</b></td>
-            </td>
-        </tr>
     </tbody>
 
-    <style>
-        table {
-            width: 100%;
-            table-layout: auto;
-            border-collapse: collapse;
-        }
-        th {
-            text-transform: uppercase;
-        }
-        th,
-        td {
-            padding: 5px 15px;
-            white-space: nowrap;
-            text-align: center;
-        }
-        th:first-child,
-        td:first-child {
+    <tfoot>
+        <tr>
+            <td class="text-left" colspan="2">Total</td>
+            <td class="whitespace-nowrap"
+                >{Math.round(total.cef).toLocaleString()}</td
+            >
+            <td class="whitespace-nowrap"
+                >{Math.round(total.cep).toLocaleString()}</td
+            >
+            <td class="whitespace-nowrap">100 %</td>
+        </tr>
+    </tfoot>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        max-width: 100%;
+        table-layout: auto;
+        border-collapse: collapse;
+    }
+    th,
+    td {
+        text-align: center;
+
+        &:first-child {
             padding-left: 0;
             padding-right: 0;
         }
-        th.grow,
-        td.grow {
-            width: 100%;
-        }
-        th.left,
-        td.left {
-            text-align: left;
-        }
-        b {
-            font-weight: 600;
-        }
-    </style>
-</table>
+    }
+    .grow {
+        width: 100%;
+    }
+    .text-left {
+        text-align: left;
+    }
+</style>

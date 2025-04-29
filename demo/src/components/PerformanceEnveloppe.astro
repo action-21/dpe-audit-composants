@@ -9,10 +9,9 @@ import {
     Enveloppe,
 } from "~";
 
-import Card from "./Card.astro";
-import CardHeader from "./CardHeader.astro";
-import Caption from "./Caption.astro";
-import DialogButton from "./DialogButton.astro";
+import { Card, CardHeader } from "./Card";
+import { Caption } from "./Caption";
+import { DialogButton } from "./Dialog";
 
 interface Props {
     murs: Array<Enveloppe.Mur.Mur>;
@@ -38,43 +37,77 @@ const {
         <DialogButton name="performance-enveloppe" />
     </CardHeader>
 
-    <div class="grid gap-6">
-        <div>
-            <div class="tabs mb-6 flex">
-                <div class="tab rounded-md active" data-name="murs">Murs</div>
-                <div class="tab rounded-md" data-name="planchers_bas">
-                    Planchers bas
-                </div>
-                <div class="tab rounded-md" data-name="planchers_hauts">
-                    Planchers haut
-                </div>
-                <div class="tab rounded-md" data-name="baies">Baies</div>
-                <div class="tab rounded-md" data-name="portes">Portes</div>
-                <div class="tab rounded-md" data-name="ponts_thermiques">
-                    Ponts thermiques
-                </div>
+    <div class="grid gap-6 grid-cols-1">
+        <div
+            class="tabs flex flex-nowrap items-center overscroll-none overflow-x-auto text-center"
+        >
+            <div class="tab grow whitespace-nowrap active" data-name="murs">
+                Murs
             </div>
+            <div class="tab grow whitespace-nowrap" data-name="planchers_bas">
+                Planchers bas
+            </div>
+            <div class="tab grow whitespace-nowrap" data-name="planchers_hauts">
+                Planchers haut
+            </div>
+            <div class="tab grow whitespace-nowrap" data-name="baies">
+                Baies
+            </div>
+            <div class="tab grow whitespace-nowrap" data-name="portes">
+                Portes
+            </div>
+            <div
+                class="tab grow whitespace-nowrap"
+                data-name="ponts_thermiques"
+            >
+                Ponts thermiques
+            </div>
+        </div>
 
-            <div class="tab-window active" data-name="murs">
-                <PerformanceMurs murs={murs} />
-            </div>
-            <div class="tab-window" data-name="planchers_bas">
-                <PerformancePlanchersBas planchers_bas={planchers_bas} />
-            </div>
-            <div class="tab-window" data-name="planchers_hauts">
-                <PerformancePlanchersHauts planchers_hauts={planchers_hauts} />
-            </div>
-            <div class="tab-window" data-name="baies">
-                <PerformanceBaies baies={baies} />
-            </div>
-            <div class="tab-window" data-name="portes">
-                <PerformancePortes portes={portes} />
-            </div>
-            <div class="tab-window" data-name="ponts_thermiques">
-                <PerformancePontsThermiques
-                    ponts_thermiques={ponts_thermiques}
-                />
-            </div>
+        <div
+            class="tab-window overflow-hidden overflow-x-auto active"
+            data-name="murs"
+        >
+            <PerformanceMurs murs={murs} className="table" />
+        </div>
+        <div
+            class="tab-window overflow-hidden overflow-x-auto"
+            data-name="planchers_bas"
+        >
+            <PerformancePlanchersBas
+                planchers_bas={planchers_bas}
+                className="table"
+            />
+        </div>
+        <div
+            class="tab-window overflow-hidden overflow-x-auto"
+            data-name="planchers_hauts"
+        >
+            <PerformancePlanchersHauts
+                planchers_hauts={planchers_hauts}
+                className="table"
+            />
+        </div>
+        <div
+            class="tab-window overflow-hidden overflow-x-auto"
+            data-name="baies"
+        >
+            <PerformanceBaies baies={baies} className="table" />
+        </div>
+        <div
+            class="tab-window overflow-hidden overflow-x-auto"
+            data-name="portes"
+        >
+            <PerformancePortes portes={portes} className="table" />
+        </div>
+        <div
+            class="tab-window overflow-hidden overflow-x-auto"
+            data-name="ponts_thermiques"
+        >
+            <PerformancePontsThermiques
+                ponts_thermiques={ponts_thermiques}
+                className="table"
+            />
         </div>
 
         <Caption>
@@ -119,24 +152,22 @@ const {
     .tab-window:not(.active) {
         display: none;
     }
+    .tabs {
+        border-bottom: solid 1px var(--border);
+    }
     .tab {
         padding: 0.8rem;
-        margin: 4px 0;
         font-weight: 600;
         text-transform: uppercase;
-        background-color: var(--bg);
-        border: solid 1px var(--border);
-        color: var(--disabled);
-    }
-    .tab:not(:last-child) {
-        margin-right: 1rem;
+        color: var(--text-disabled);
+        border-bottom: solid 2px transparent;
+
+        &.active {
+            border-color: var(--primary);
+            color: var(--color-primary);
+        }
     }
     .tab:hover {
         cursor: pointer;
-    }
-    .tab.active {
-        background-color: var(--bg);
-        border-color: var(--border);
-        color: var(--accent);
     }
 </style>

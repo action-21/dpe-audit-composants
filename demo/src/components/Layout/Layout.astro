@@ -1,0 +1,32 @@
+---
+import "../../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>DPE Audit Démo</title>
+	</head>
+	<body>
+		<div class="container">
+			<slot />
+		</div>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		position: relative;
+		margin: 0;
+	}
+	.container {
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 2rem 0;
+	}
+</style>

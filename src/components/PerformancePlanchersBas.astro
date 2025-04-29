@@ -2,10 +2,11 @@
 import { PlancherBas } from "../data/Enveloppe";
 
 interface Props {
+    className?: string;
     planchers_bas: Array<PlancherBas.PlancherBas>;
 }
 
-const { planchers_bas } = Astro.props;
+const { planchers_bas, className = '' } = Astro.props;
 
 const total = {
     sdep: planchers_bas.reduce((acc, item) => acc + item.data.sdep, 0),
@@ -27,10 +28,10 @@ const data = planchers_bas
     .sort((a, b) => (a.dp > b.dp ? -1 : 1));
 ---
 
-<table>
+<table class={className}>
     <thead>
         <tr>
-            <th class="grow left">Description</th>
+            <th class="grow text-left">Description</th>
             <th>U</th>
             <th>SDEP</th>
             <th>DP</th>
@@ -42,18 +43,20 @@ const data = planchers_bas
         {
             data.map((item) => (
                 <tr>
-                    <td class="grow left">
-                        {item.description.split('\n').map((line) => (
+                    <td class="grow text-left">
+                        {item.description.split("\n").map((line) => (
                             <p>{line}</p>
                         ))}
                     </td>
                     <td data-performance={item.performance}>
-                        <span>{item.u.toFixed(2)}</span>
+                        <span class="whitespace-nowrap">
+                            {item.u.toFixed(2)}
+                        </span>
                     </td>
-                    <td>{item.sdep.toFixed(2)}</td>
-                    <td>{item.dp.toFixed(2)}</td>
-                    <td>
-                        <b>{item.part.toFixed(2)} %</b>
+                    <td class="whitespace-nowrap">{item.sdep.toFixed(2)}</td>
+                    <td class="whitespace-nowrap">{item.dp.toFixed(2)}</td>
+                    <td class="whitespace-nowrap font-semibold">
+                        {item.part.toFixed(2)} %
                     </td>
                 </tr>
             ))
@@ -62,11 +65,11 @@ const data = planchers_bas
 
     <tfoot>
         <tr>
-            <td class="left"><b>Total</b></td>
-            <td><b>-</b></td>
-            <td><b>{total.sdep.toFixed(2)}</b></td>
-            <td><b>{total.dp.toFixed(2)}</b></td>
-            <td><b>100 %</b></td>
+            <td class="text-left whitespace-nowrap">Total</td>
+            <td>-</td>
+            <td class="whitespace-nowrap">{total.sdep.toFixed(2)}</td>
+            <td class="whitespace-nowrap">{total.dp.toFixed(2)}</td>
+            <td class="whitespace-nowrap">100 %</td>
         </tr>
     </tfoot>
 </table>
@@ -74,39 +77,11 @@ const data = planchers_bas
 <style>
     table {
         width: 100%;
+        max-width: 100%;
         table-layout: auto;
         border-collapse: collapse;
     }
-    th {
-        text-transform: uppercase;
-    }
-    th,
     td {
-        padding: 8px 15px;
-        white-space: nowrap;
-        text-align: center;
-
-        &:first-child {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        &.grow {
-            width: 100%;
-        }
-
-        &.left {
-            text-align: left;
-        }
-
-        p:not(:last-child) {
-            margin-bottom: 0.5rem;
-        }
-    }
-    b {
-        font-weight: 600;
-    }
-    tbody td {
         span {
             padding: 0.3rem;
             font-weight: 600;
@@ -124,5 +99,23 @@ const data = planchers_bas
         &[data-performance="insuffisante"] span {
             background-color: #e52322;
         }
+    }
+    th,
+    td {
+        text-align: center;
+
+        &:first-child {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        p:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
+    }
+    .text-left {
+        text-align: left;
+    }
+    .grow {
+        width: 100%;
     }
 </style>

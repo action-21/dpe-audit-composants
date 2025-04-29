@@ -1,1 +1,0 @@
-# Performance de l'enveloppe

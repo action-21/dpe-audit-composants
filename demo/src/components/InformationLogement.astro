@@ -1,0 +1,30 @@
+---
+import { Audit } from "~";
+import { Card } from "./Card";
+import Icon from "../icons/house-building.svg";
+
+interface Props {
+    batiment: Audit.Batiment;
+    adresse: Audit.Adresse;
+}
+
+const { batiment, adresse } = Astro.props;
+---
+
+<Card>
+    <div class="flex items-center gap-4">
+        <div class="p-4">
+            <Icon class="fill-primary" width={62} height={62} />
+        </div>
+        <div class="info">
+            <div class="font-semibold">
+                {Audit.typeBatimentToString(batiment.type)}
+            </div>
+            <div class="content">
+                <p>{Audit.adresseToString(adresse)}</p>
+                <p>Surface : {batiment.surface_habitable} m²</p>
+                <p>Année de construction : {batiment.annee_construction}</p>
+            </div>
+        </div>
+    </div>
+</Card>

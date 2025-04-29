@@ -1,7 +1,7 @@
 ---
 import { Enveloppe, IndicateurConfortEte } from "~";
-import Card from "./Card.astro";
-import CardHeader from "./CardHeader.astro";
+import { Card, CardHeader } from "./Card";
+import { DialogButton } from "./Dialog";
 
 interface Props {
     confort_ete: Enveloppe.ConfortEte;
@@ -11,7 +11,9 @@ const { confort_ete } = Astro.props;
 ---
 
 <Card>
-    <CardHeader title="Confort d'été" />
+    <CardHeader title="Confort d'été">
+        <DialogButton name="confort-ete" />
+    </CardHeader>
 
     <div class="max-w-[200px] m-auto">
         <IndicateurConfortEte confort_ete={confort_ete} />

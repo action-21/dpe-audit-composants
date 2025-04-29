@@ -1,0 +1,46 @@
+---
+import ConfortEteContent from "../contents/confort-ete.md";
+import ConsommationsEnergie from "../contents/consommations-energie.md";
+import DeperditionsThermiques from "../contents/deperditions-thermiques.md";
+import EtiquetteClimat from "../contents/etiquette-climat.md";
+import EtiquetteEnergie from "../contents/etiquette-energie.md";
+import PerformanceIsolation from "../contents/performance-isolation.md";
+import PerformanceIsolationParois from "../contents/performance-isolation-parois.md";
+
+interface Props {
+    className?: string;
+    name:
+        | "confort-ete"
+        | "consommations-energie"
+        | "deperditions-thermiques"
+        | "etiquette-climat"
+        | "etiquette-energie"
+        | "performance-isolation"
+        | "performance-isolation-parois";
+}
+
+const { name, className = "" } = Astro.props;
+
+const Component = (() => {
+    switch (name) {
+        case "confort-ete":
+            return ConfortEteContent;
+        case "consommations-energie":
+            return ConsommationsEnergie;
+        case "deperditions-thermiques":
+            return DeperditionsThermiques;
+        case "etiquette-climat":
+            return EtiquetteClimat;
+        case "etiquette-energie":
+            return EtiquetteEnergie;
+        case "performance-isolation":
+            return PerformanceIsolation;
+        case "performance-isolation-parois":
+            return PerformanceIsolationParois;
+    }
+})();
+---
+
+<div class={className}>
+    <Component />
+</div>

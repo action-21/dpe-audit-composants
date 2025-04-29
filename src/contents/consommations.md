@@ -1,1 +1,0 @@
-# Consommations d'énergie

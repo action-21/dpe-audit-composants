@@ -1,22 +1,23 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import 'github-markdown-css/github-markdown.css';
+@plugin '@tailwindcss/typography';
+@plugin "daisyui" {
+  themes: light --default;
+}
 
 :root {
-  --text: #1A1A1A;
-  --bg: #EDF1F6;
-  --bg-disabled: #F0F8FF;
-  --accent: #2C3EC4;
-  --disabled: #6B7280;
+  --text-disabled: color-mix(
+    in oklab,
+    var(--color-base-content) 60%,
+    transparent
+  );
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  //background-color: var(--bg);
+  //color: var(--text);
   font-family: 'Poppins';
-}
-
-* {
   font-size: 0.9rem;
-  line-height: 0.9rem;
 }
 
 h1,
@@ -29,5 +30,21 @@ p,
 th,
 td,
 svg {
-  color: #1A1A1A;
+  //color: #1A1A1A;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+ul, ol {
+  list-style: initial;
+  padding-left: 1.5rem;
 }

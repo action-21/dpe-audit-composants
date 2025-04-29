@@ -1,8 +1,7 @@
 ---
-import Card from "./Card.astro";
-import CardHeader from "./CardHeader.astro";
-import Caption from "./Caption.astro";
-import DialogButton from "./DialogButton.astro";
+import { Card, CardHeader } from "./Card";
+import { Caption } from "./Caption";
+import { DialogButton } from "./Dialog";
 import { ConsommationsEnergie, ConsommationsUsage, Common } from "~";
 
 interface Props {
@@ -17,9 +16,12 @@ const { consommations } = Astro.props;
     </CardHeader>
 
     <div class="grid gap-6">
-        <ConsommationsUsage consommations={consommations} />
-
-        <ConsommationsEnergie consommations={consommations} />
+        <div class="overflow-hidden overflow-x-auto">
+            <ConsommationsUsage consommations={consommations} className="table" />
+        </div>
+        <div class="overflow-hidden overflow-x-auto">
+            <ConsommationsEnergie consommations={consommations} className="table" />
+        </div>
 
         <Caption>
             <ul>
@@ -29,3 +31,5 @@ const { consommations } = Astro.props;
         </Caption>
     </div>
 </Card>
+
+<style></style>

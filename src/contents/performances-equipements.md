@@ -1,1 +1,0 @@
-# Performance des équipements

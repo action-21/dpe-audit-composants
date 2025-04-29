@@ -1,42 +1,63 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
-import Dialog from "src/components/Dialog.astro";
+import { Content } from "~";
+import { Layout } from "../components/Layout";
+import { Dialog } from "src/components/Dialog";
 import Consommations from "../components/Consommations.astro";
+import InformationLogement from "../components/InformationLogement.astro";
 import PerformanceEnergetique from "../components/PerformanceEnergetique.astro";
 import PerformanceClimatique from "../components/PerformanceClimatique.astro";
 import PerformanceEnveloppe from "../components/PerformanceEnveloppe.astro";
 import RepartitionDeperditions from "../components/RepartitionDeperditions.astro";
 import PerformanceIsolation from "../components/PerformanceIsolation.astro";
 import ConfortEte from "../components/ConfortEte.astro";
-import PerformanceClimatiqueContent from "../data/infos/performance-climatique.md";
-import PerformanceEnergetiqueContent from "../data/infos/performance-energetique.md";
-import RepartitionConsommationsContent from "../data/infos/repartition-consommations.md";
-import RepartitionDeperditionsContent from "../data/infos/repartition-deperditions.md";
-import InformationLogement from "~/src/components/InformationLogement.astro";
 import { useFixture } from "src/fixtures/fixtures";
 
 const audit = useFixture();
 ---
 
 <Layout>
-	<header>
-		<Card>
-			<h1>Audit énergétique</h1>
-		</Card>
-	</header>
-
-	<main>
-		<div
-			class="grid auto-rows-min auto-cols-min grid-cols-3 grid-rows-1 gap-4"
-		>
-			<div class="grid auto-rows-min gap-4 col-span-2">
-				<Card>
+	<main class="p-4 lg:p-0">
+		<div class="grid lg:grid-cols-3 gap-4">
+			<div class="grid lg:order-last auto-rows-min lg:grid-cols-1 gap-4">
+				<div class="lg:hidden">
 					<InformationLogement
 						batiment={audit.batiment}
 						adresse={audit.adresse}
 					/>
-				</Card>
+				</div>
+
+				<div
+					class="grid grid-rows-2 auto-rows-min md:grid-rows-1 md:grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 gap-4"
+				>
+					<PerformanceEnergetique
+						etiquette_energie={audit.data.etiquette_energie}
+						cef={audit.data.cef}
+						cep={audit.data.cep}
+					/>
+
+					<PerformanceClimatique
+						etiquette_climat={audit.data.etiquette_climat}
+						eges={audit.data.eges}
+					/>
+				</div>
+
+				<RepartitionDeperditions
+					deperditions={audit.enveloppe.data.deperditions}
+				/>
+
+				<PerformanceIsolation
+					performance={audit.enveloppe.data.performance}
+				/>
+
+				<ConfortEte confort_ete={audit.enveloppe.data.confort_ete} />
+			</div>
+			<div class="grid lg:order-first auto-rows-min lg:col-span-2 gap-4">
+				<div class="hidden lg:block">
+					<InformationLogement
+						batiment={audit.batiment}
+						adresse={audit.adresse}
+					/>
+				</div>
 
 				<Consommations consommations={audit.data.consommations} />
 
@@ -49,42 +70,29 @@ const audit = useFixture();
 					ponts_thermiques={audit.enveloppe.ponts_thermiques}
 				/>
 			</div>
-			<div class="grid auto-rows-min grid-cols-1 gap-4">
-				<PerformanceEnergetique
-					etiquette_energie={audit.data.etiquette_energie}
-					cef={audit.data.cef}
-					cep={audit.data.cep}
-				/>
-
-				<PerformanceClimatique
-					etiquette_climat={audit.data.etiquette_climat}
-					eges={audit.data.eges}
-				/>
-
-				<RepartitionDeperditions
-					deperditions={audit.enveloppe.data.deperditions}
-				/>
-
-				<PerformanceIsolation
-					performance={audit.enveloppe.data.performance}
-				/>
-
-				<ConfortEte confort_ete={audit.enveloppe.data.confort_ete} />
-			</div>
 		</div>
 	</main>
 
 	<Dialog name="repartition-consommations">
-		<RepartitionConsommationsContent />
+		<Content name="consommations-energie" className="markdown-body" />
+	</Dialog>
+	<Dialog name="performance-enveloppe">
+		<Content name="performance-isolation-parois" className="markdown-body" />
 	</Dialog>
 	<Dialog name="performance-climatique">
-		<PerformanceClimatiqueContent />
+		<Content name="etiquette-energie" className="markdown-body" />
 	</Dialog>
 	<Dialog name="performance-energetique">
-		<PerformanceEnergetiqueContent />
+		<Content name="etiquette-climat" className="markdown-body" />
 	</Dialog>
 	<Dialog name="repartition-deperditions">
-		<RepartitionDeperditionsContent />
+		<Content name="deperditions-thermiques" className="markdown-body" />
+	</Dialog>
+	<Dialog name="confort-ete">
+		<Content name="confort-ete" className="markdown-body" />
+	</Dialog>
+	<Dialog name="performance-isolation">
+		<Content name="performance-isolation" className="markdown-body" />
 	</Dialog>
 </Layout>
 
