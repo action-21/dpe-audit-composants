@@ -1,6 +1,9 @@
 import { Audit } from 'dpe-audit'
 import fixture from './fixture.json'
+import { $audit, setAudit } from '../stores/user'
 
-export const useFixture = (): Audit.AuditWithData => {
-  return fixture as Audit.AuditWithData
+export const useFixtures = () => {
+  if (null === $audit.get()) {
+    setAudit(fixture as Audit.AuditWithData)
+  }
 }
