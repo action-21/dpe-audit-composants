@@ -1,5 +1,6 @@
 ---
-import { Audit, EtiquetteClimat } from "~";
+import { Audit } from "dpe-audit";
+import { EtiquetteClimat } from "~";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
@@ -32,15 +33,3 @@ const { etiquette_climat, eges } = Astro.props;
         </div>
     </div>
 </Card>
-
-<style>
-    .data {
-        text-align: center;
-    }
-    .data-title {
-        text-transform: uppercase;
-    }
-    .data-value {
-        font-weight: 600;
-    }
-</style>

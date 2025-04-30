@@ -1,5 +1,5 @@
 ---
-import { Energie } from "../data/Common";
+import { Common } from 'dpe-audit'
 import Bois from "../icons/bois.svg";
 import Electricite from "../icons/electricite.svg";
 import Fioul from "../icons/fioul.svg";
@@ -10,7 +10,7 @@ import ReseauChaleur from "../icons/reseau-chaleur.svg";
 import ReseauFroid from "../icons/reseau-froid.svg";
 
 interface Props {
-    energie: Energie;
+    energie: Common.Energie;
     size?: number;
 }
 
@@ -18,25 +18,25 @@ const { energie, size = 18 } = Astro.props;
 
 const Icon = ((energie) => {
     switch (energie) {
-        case Energie.bois_buche:
+        case Common.Energie.bois_buche:
             return Bois;
-        case Energie.bois_plaquette:
+        case Common.Energie.bois_plaquette:
             return Bois;
-        case Energie.bois_granule:
+        case Common.Energie.bois_granule:
             return Bois;
-        case Energie.electricite:
+        case Common.Energie.electricite:
             return Electricite;
-        case Energie.gaz_naturel:
+        case Common.Energie.gaz_naturel:
             return Gaz;
-        case Energie.gpl:
+        case Common.Energie.gpl:
             return GPL;
-        case Energie.fioul:
+        case Common.Energie.fioul:
             return Fioul;
-        case Energie.charbon:
+        case Common.Energie.charbon:
             return Charbon;
-        case Energie.reseau_chaleur:
+        case Common.Energie.reseau_chaleur:
             return ReseauChaleur;
-        case Energie.reseau_froid:
+        case Common.Energie.reseau_froid:
             return ReseauFroid;
     }
 })(energie)

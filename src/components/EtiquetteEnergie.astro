@@ -1,5 +1,5 @@
 ---
-import { EtiquetteEnergie as EtiquetteEnergieType } from "../data/Audit";
+import { Audit } from 'dpe-audit'
 import EtiquetteEnergieA from "../images/etiquette-energie/etiquette-energie-a.svg";
 import EtiquetteEnergieB from "../images/etiquette-energie/etiquette-energie-b.svg";
 import EtiquetteEnergieC from "../images/etiquette-energie/etiquette-energie-c.svg";
@@ -9,26 +9,26 @@ import EtiquetteEnergieF from "../images/etiquette-energie/etiquette-energie-f.s
 import EtiquetteEnergieG from "../images/etiquette-energie/etiquette-energie-g.svg";
 
 interface Props {
-    etiquette_energie: EtiquetteEnergieType;
+    etiquette_energie: Audit.EtiquetteEnergie;
 }
 
 const { etiquette_energie } = Astro.props;
 
 const Icon = ((etiquette_energie) => {
     switch (etiquette_energie) {
-        case EtiquetteEnergieType.A:
+        case Audit.EtiquetteEnergie.A:
             return EtiquetteEnergieA;
-        case EtiquetteEnergieType.B:
+        case Audit.EtiquetteEnergie.B:
             return EtiquetteEnergieB;
-        case EtiquetteEnergieType.C:
+        case Audit.EtiquetteEnergie.C:
             return EtiquetteEnergieC;
-        case EtiquetteEnergieType.D:
+        case Audit.EtiquetteEnergie.D:
             return EtiquetteEnergieD;
-        case EtiquetteEnergieType.E:
+        case Audit.EtiquetteEnergie.E:
             return EtiquetteEnergieE;
-        case EtiquetteEnergieType.F:
+        case Audit.EtiquetteEnergie.F:
             return EtiquetteEnergieF;
-        case EtiquetteEnergieType.G:
+        case Audit.EtiquetteEnergie.G:
             return EtiquetteEnergieG;
     }
 })(etiquette_energie);

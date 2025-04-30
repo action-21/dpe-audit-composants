@@ -1,9 +1,9 @@
 ---
-import { Porte } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
     className?: string;
-    portes: Array<Porte.Porte>;
+    portes: Array<Enveloppe.PorteWithData>;
 }
 
 const { portes, className = "" } = Astro.props;
@@ -15,8 +15,16 @@ const total = {
 
 const data = portes
     .map((item) => {
+        let description: string = item.description;
+
+        if (item.vitrage.taux_vitrage > 0) {
+            description += item.vitrage.type_vitrage
+                ? `\n${Enveloppe.Porte.typeVitrageToString(item.vitrage.type_vitrage)}`
+                : `\nVitrage inconnue`;
+        }
+
         return {
-            description: Porte.toString(item),
+            description: description,
             sdep: item.data.sdep,
             u: item.data.u,
             performance: item.data.performance,
@@ -47,12 +55,17 @@ const data = portes
                             <p>{line}</p>
                         ))}
                     </td>
-                    <td class="whitespace-nowrap" data-performance={item.performance}>
+                    <td
+                        class="whitespace-nowrap"
+                        data-performance={item.performance}
+                    >
                         <span>{item.u.toFixed(2)}</span>
                     </td>
                     <td class="whitespace-nowrap">{item.sdep.toFixed(2)}</td>
                     <td class="whitespace-nowrap">{item.dp.toFixed(2)}</td>
-                    <td class="whitespace-nowrap font-semibold">{item.part.toFixed(2)} %</td>
+                    <td class="whitespace-nowrap font-semibold">
+                        {item.part.toFixed(2)} %
+                    </td>
                 </tr>
             ))
         }

@@ -1,24 +1,24 @@
 ---
-import { Performance, performanceToString } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 import Icon from "../icons/enveloppe.svg";
 
 interface Props {
-    performance: Performance;
+    performance: Enveloppe.Performance;
 }
 
 const { performance } = Astro.props;
 
-const performances: Array<Performance> = [
-    Performance.tres_bonne,
-    Performance.bonne,
-    Performance.moyenne,
-    Performance.insuffisante,
+const performances: Array<Enveloppe.Performance> = [
+    Enveloppe.Performance.tres_bonne,
+    Enveloppe.Performance.bonne,
+    Enveloppe.Performance.moyenne,
+    Enveloppe.Performance.insuffisante,
 ];
 
 const data = performances.map((item) => {
     return {
         value: item,
-        text: performanceToString(item),
+        text: Enveloppe.performanceToString(item),
         active: item === performance,
     };
 });

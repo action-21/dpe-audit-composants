@@ -1,36 +1,36 @@
 ---
-import { ConfortEte, confortEteToString } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 import IconBon from "../icons/smiley-happy.svg";
 import IconMoyen from "../icons/smiley-neutral.svg";
 import IconInsuffisant from "../icons/smiley-sad.svg";
 
 interface Props {
-    confort_ete: ConfortEte;
+    confort_ete: Enveloppe.ConfortEte;
 }
 
 const { confort_ete } = Astro.props;
 
-const enums: Array<ConfortEte> = [
-    ConfortEte.bon,
-    ConfortEte.moyen,
-    ConfortEte.insuffisant,
+const enums: Array<Enveloppe.ConfortEte> = [
+    Enveloppe.ConfortEte.bon,
+    Enveloppe.ConfortEte.moyen,
+    Enveloppe.ConfortEte.insuffisant,
 ];
 
 const data = enums.map((item) => {
     return {
         value: item,
-        text: confortEteToString(item),
+        text: Enveloppe.confortEteToString(item),
         active: item === confort_ete,
     };
 });
 
-const Icon = ((confort_ete: ConfortEte) => {
+const Icon = ((confort_ete: Enveloppe.ConfortEte) => {
     switch (confort_ete) {
-        case ConfortEte.bon:
+        case Enveloppe.ConfortEte.bon:
             return IconBon;
-        case ConfortEte.moyen:
+        case Enveloppe.ConfortEte.moyen:
             return IconMoyen;
-        case ConfortEte.insuffisant:
+        case Enveloppe.ConfortEte.insuffisant:
             return IconInsuffisant;
     }
 })(confort_ete);

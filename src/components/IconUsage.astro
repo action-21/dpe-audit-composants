@@ -1,5 +1,5 @@
 ---
-import { Usage } from "../data/Common";
+import { Common } from "dpe-audit";
 import Chauffage from "../icons/chauffage.svg";
 import ECS from "../icons/ecs.svg";
 import Refroidissement from "../icons/refroidissement.svg";
@@ -7,7 +7,7 @@ import Eclairage from "../icons/eclairage.svg";
 import Auxiliaire from "../icons/auxiliaire.svg";
 
 interface Props {
-    usage: Usage;
+    usage: Common.Usage;
     size?: number;
 }
 
@@ -15,15 +15,15 @@ const { usage, size = 18 } = Astro.props;
 
 const Icon = ((usage) => {
     switch (usage) {
-        case Usage.chauffage:
+        case Common.Usage.chauffage:
             return Chauffage;
-        case Usage.ecs:
+        case Common.Usage.ecs:
             return ECS;
-        case Usage.refroidissement:
+        case Common.Usage.refroidissement:
             return Refroidissement;
-        case Usage.eclairage:
+        case Common.Usage.eclairage:
             return Eclairage;
-        case Usage.auxiliaire:
+        case Common.Usage.auxiliaire:
             return Auxiliaire;
     }
 })(usage);

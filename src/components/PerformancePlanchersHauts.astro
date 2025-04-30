@@ -1,9 +1,9 @@
 ---
-import { PlancherHaut } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
     className?: string;
-    planchers_hauts: Array<PlancherHaut.PlancherHaut>;
+    planchers_hauts: Array<Enveloppe.PlancherHautWithData>;
 }
 
 const { planchers_hauts, className = "" } = Astro.props;
@@ -15,8 +15,16 @@ const total = {
 
 const data = planchers_hauts
     .map((item) => {
+        let description: string = item.description;
+
+        if (item.type_structure) {
+            description += `\n${Enveloppe.PlancherHaut.typeStructureToString(item.type_structure)}`;
+        }
+
+        description += `\n${Enveloppe.isolationToString(item.isolation)}`;
+
         return {
-            description: PlancherHaut.toString(item),
+            description: description,
             part: (item.data.dp / total.dp) * 100,
             isolation: item.isolation,
             sdep: item.data.sdep,

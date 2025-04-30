@@ -1,5 +1,5 @@
 ---
-import { EtiquetteClimat as EtiquetteClimatType } from "../data/Audit";
+import { Audit } from 'dpe-audit'
 import EtiquetteClimatA from "../images/etiquette-climat/etiquette-climat-a.svg";
 import EtiquetteClimatB from "../images/etiquette-climat/etiquette-climat-b.svg";
 import EtiquetteClimatC from "../images/etiquette-climat/etiquette-climat-c.svg";
@@ -9,26 +9,26 @@ import EtiquetteClimatF from "../images/etiquette-climat/etiquette-climat-f.svg"
 import EtiquetteClimatG from "../images/etiquette-climat/etiquette-climat-g.svg";
 
 interface Props {
-    etiquette_climat: EtiquetteClimatType;
+    etiquette_climat: Audit.EtiquetteClimat;
 }
 
 const { etiquette_climat } = Astro.props;
 
 const Icon = ((etiquette_climat) => {
     switch (etiquette_climat) {
-        case EtiquetteClimatType.A:
+        case Audit.EtiquetteClimat.A:
             return EtiquetteClimatA;
-        case EtiquetteClimatType.B:
+        case Audit.EtiquetteClimat.B:
             return EtiquetteClimatB;
-        case EtiquetteClimatType.C:
+        case Audit.EtiquetteClimat.C:
             return EtiquetteClimatC;
-        case EtiquetteClimatType.D:
+        case Audit.EtiquetteClimat.D:
             return EtiquetteClimatD;
-        case EtiquetteClimatType.E:
+        case Audit.EtiquetteClimat.E:
             return EtiquetteClimatE;
-        case EtiquetteClimatType.F:
+        case Audit.EtiquetteClimat.F:
             return EtiquetteClimatF;
-        case EtiquetteClimatType.G:
+        case Audit.EtiquetteClimat.G:
             return EtiquetteClimatG;
     }
 })(etiquette_climat);

@@ -1,4 +1,5 @@
 ---
+import { Enveloppe } from "dpe-audit";
 import {
     PerformanceMurs,
     PerformancePlanchersBas,
@@ -6,7 +7,6 @@ import {
     PerformanceBaies,
     PerformancePortes,
     PerformancePontsThermiques,
-    Enveloppe,
 } from "~";
 
 import { Card, CardHeader } from "./Card";
@@ -14,12 +14,12 @@ import { Caption } from "./Caption";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    murs: Array<Enveloppe.Mur.Mur>;
-    planchers_bas: Array<Enveloppe.PlancherBas.PlancherBas>;
-    planchers_hauts: Array<Enveloppe.PlancherHaut.PlancherHaut>;
-    baies: Array<Enveloppe.Baie.Baie>;
-    portes: Array<Enveloppe.Porte.Porte>;
-    ponts_thermiques: Array<Enveloppe.PontThermique.PontThermique>;
+    murs: Array<Enveloppe.MurWithData>;
+    planchers_bas: Array<Enveloppe.PlancherBasWithData>;
+    planchers_hauts: Array<Enveloppe.PlancherHautWithData>;
+    baies: Array<Enveloppe.BaieWithData>;
+    portes: Array<Enveloppe.PorteWithData>;
+    ponts_thermiques: Array<Enveloppe.PontThermiqueWithData>;
 }
 
 const {

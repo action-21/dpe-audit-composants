@@ -1,9 +1,9 @@
 ---
-import { PontThermique } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
     className?: string;
-    ponts_thermiques: Array<PontThermique.PontThermique>;
+    ponts_thermiques: Array<Enveloppe.PontThermiqueWithData>;
 }
 
 const { ponts_thermiques, className = "" } = Astro.props;
@@ -15,8 +15,11 @@ const total = {
 
 const data = ponts_thermiques
     .map((item) => {
+        let description = `${Enveloppe.PontThermique.typeLiaisonToString(item.liaison.type_liaison)}`;
+        description += `\n${item.description}`;
+
         return {
-            description: PontThermique.toString(item),
+            description: description,
             longueur: item.longueur,
             kpt: item.data.kpt,
             pt: item.data.pt,

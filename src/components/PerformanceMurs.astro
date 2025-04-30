@@ -1,9 +1,9 @@
 ---
-import { Mur } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
     className?: string;
-    murs: Array<Mur.Mur>;
+    murs: Array<Enveloppe.MurWithData>;
 }
 
 const { murs, className = "" } = Astro.props;
@@ -15,8 +15,23 @@ const total = {
 
 const data = murs
     .map((item) => {
+        let description: string = item.description;
+
+        if (item.type_structure) {
+            description += `\n${Enveloppe.Mur.typeStructureToString(item.type_structure)}`;
+
+            if (item.epaisseur_structure) {
+                description += ` - ${item.epaisseur_structure} mm`;
+            }
+        }
+        if (item.type_doublage) {
+            description += `\n${Enveloppe.Mur.typeDoublageToString(item.type_doublage)}`;
+        }
+
+        description += `\n${Enveloppe.isolationToString(item.isolation)}`;
+
         return {
-            description: Mur.toString(item),
+            description: description,
             part: (item.data.dp / total.dp) * 100,
             isolation: item.isolation,
             sdep: item.data.sdep,

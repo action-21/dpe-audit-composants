@@ -1,9 +1,9 @@
 ---
-import { Baie } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
     className?: string;
-    baies: Array<Baie.Baie>;
+    baies: Array<Enveloppe.BaieWithData>;
 }
 
 const { baies, className = "" } = Astro.props;
@@ -15,8 +15,33 @@ const total = {
 
 const data = baies
     .map((item) => {
+        let description: string = item.description;
+
+        if (item.vitrage?.type_vitrage) {
+            description += item.vitrage.type_vitrage
+                ? `\n${Enveloppe.Baie.typeVitrageToString(item.vitrage.type_vitrage)}`
+                : `\nVitrage inconnu`;
+
+            if (item.vitrage.nature_lame) {
+                description += ` - ${Enveloppe.Baie.natureLameToString(item.vitrage.nature_lame)}`;
+            }
+            if (item.vitrage.epaisseur_lame) {
+                description += ` - ${item.vitrage.epaisseur_lame} mm`;
+            }
+            if (item.vitrage.survitrage) {
+                description += item.vitrage.survitrage.type_survitrage
+                    ? `\n${Enveloppe.Baie.typeSurvitrageToString(
+                          item.vitrage.survitrage.type_survitrage,
+                      )}`
+                    : `\nSurvitrage inconnu`;
+
+                if (item.vitrage.survitrage.epaisseur_lame) {
+                    description += ` - ${item.vitrage.survitrage.epaisseur_lame} mm`;
+                }
+            }
+        }
         return {
-            description: Baie.toString(item),
+            description: description,
             sdep: item.data.sdep,
             u: item.data.u,
             performance: item.data.performance,
@@ -47,14 +72,15 @@ const data = baies
                             <p>{line}</p>
                         ))}
                     </td>
-                    <td class="whitespace-nowrap" data-performance={item.performance}>
+                    <td
+                        class="whitespace-nowrap"
+                        data-performance={item.performance}
+                    >
                         <span>{item.u.toFixed(2)}</span>
                     </td>
                     <td class="whitespace-nowrap">{item.sdep.toFixed(2)}</td>
                     <td class="whitespace-nowrap">{item.dp.toFixed(2)}</td>
-                    <td class="whitespace-nowrap">
-                        {item.part.toFixed(2)} %
-                    </td>
+                    <td class="whitespace-nowrap">{item.part.toFixed(2)} %</td>
                 </tr>
             ))
         }

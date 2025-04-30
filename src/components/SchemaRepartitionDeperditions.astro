@@ -1,8 +1,8 @@
 ---
-import { TypeDeperdition, type Deperdition } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
-    deperditions: Deperdition[];
+    deperditions: Enveloppe.Deperdition[];
 }
 
 const { deperditions } = Astro.props;
@@ -17,7 +17,7 @@ const data = deperditions.map((item) => {
     };
 });
 
-const get = (type: TypeDeperdition): number => {
+const get = (type: Enveloppe.TypeDeperdition): number => {
     return data
         .filter((item) => item.type === type)
         .reduce((acc, item) => acc + item.part, 0);
@@ -58,37 +58,42 @@ const get = (type: TypeDeperdition): number => {
     <text y="20" fill="#1A1A1A" font-family="Gotham" font-size="14">
         <tspan x="100" text-anchor="middle">Ventilation</tspan>
         <tspan x="100" dy="1.2em" text-anchor="middle" font-weight="500">
-            {Math.round(get(TypeDeperdition.renouvellement_air))} %
+            {Math.round(get(Enveloppe.TypeDeperdition.renouvellement_air))} %
         </tspan>
     </text>
     <text y="20" fill="#1A1A1A" font-family="Gotham" font-size="14">
         <tspan x="280" text-anchor="middle">Toitures</tspan>
         <tspan x="280" dy="1.2em" text-anchor="middle" font-weight="500">
-            {Math.round(get(TypeDeperdition.plancher_haut))} %
+            {Math.round(get(Enveloppe.TypeDeperdition.plancher_haut))} %
         </tspan>
     </text>
     <text id="murs" y="120" fill="#1A1A1A" font-family="Gotham" font-size="14">
         <tspan x="320" text-anchor="middle">Murs</tspan>
         <tspan x="320" dy="1.2em" text-anchor="middle" font-weight="500">
-            {Math.round(get(TypeDeperdition.mur))} %
+            {Math.round(get(Enveloppe.TypeDeperdition.mur))} %
         </tspan>
     </text>
     <text y="220" fill="#1A1A1A" font-family="Gotham" font-size="14">
         <tspan x="198" text-anchor="middle">Planchers</tspan>
         <tspan x="198" dy="1.2em" text-anchor="middle" font-weight="500">
-            {Math.round(get(TypeDeperdition.plancher_bas))} %
+            {Math.round(get(Enveloppe.TypeDeperdition.plancher_bas))} %
         </tspan>
     </text>
     <text y="210" fill="#1A1A1A" font-family="Gotham" font-size="14">
         <tspan x="90" text-anchor="middle">Ponts thermiques</tspan>
         <tspan x="90" dy="1.2em" text-anchor="middle" font-weight="500">
-            {Math.round(get(TypeDeperdition.pont_thermique))} %
+            {Math.round(get(Enveloppe.TypeDeperdition.pont_thermique))} %
         </tspan>
     </text>
     <text y="120" fill="#1A1A1A" font-family="Gotham" font-size="14">
         <tspan x="60" text-anchor="middle">Menuiseries</tspan>
         <tspan x="60" dy="1.2em" text-anchor="middle" font-weight="500">
-            {Math.round(get(TypeDeperdition.porte) + get(TypeDeperdition.baie))}
+            {
+                Math.round(
+                    get(Enveloppe.TypeDeperdition.porte) +
+                        get(Enveloppe.TypeDeperdition.baie),
+                )
+            }
             %
         </tspan>
     </text>

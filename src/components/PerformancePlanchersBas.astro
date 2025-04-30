@@ -1,12 +1,12 @@
 ---
-import { PlancherBas } from "../data/Enveloppe";
+import { Enveloppe } from "dpe-audit";
 
 interface Props {
     className?: string;
-    planchers_bas: Array<PlancherBas.PlancherBas>;
+    planchers_bas: Array<Enveloppe.PlancherBasWithData>;
 }
 
-const { planchers_bas, className = '' } = Astro.props;
+const { planchers_bas, className = "" } = Astro.props;
 
 const total = {
     sdep: planchers_bas.reduce((acc, item) => acc + item.data.sdep, 0),
@@ -15,8 +15,16 @@ const total = {
 
 const data = planchers_bas
     .map((item) => {
+        let description: string = item.description;
+
+        if (item.type_structure) {
+            description += `\n${Enveloppe.PlancherBas.typeStructureToString(item.type_structure)}`;
+        }
+
+        description += `\n${Enveloppe.isolationToString(item.isolation)}`;
+
         return {
-            description: PlancherBas.toString(item),
+            description: description,
             part: (item.data.dp / total.dp) * 100,
             isolation: item.isolation,
             sdep: item.data.sdep,

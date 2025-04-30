@@ -1,15 +1,12 @@
 ---
+import { Common } from 'dpe-audit'
 import Icon from "./IconUsage.astro";
-import {
-    type Consommation,
-    type Scenario,
-    usageToString,
-} from "../data/Common";
+
 
 interface Props {
     className?: string;
-    consommations: Consommation[];
-    scenario?: Scenario;
+    consommations: Common.Consommation[];
+    scenario?: Common.Scenario;
 }
 
 const {
@@ -67,7 +64,7 @@ const tableData = usages
                         <Icon usage={item.usage} />
                     </td>
                     <td class="grow text-left whitespace-nowrap">
-                        {usageToString(item.usage)}
+                        {Common.usageToString(item.usage)}
                     </td>
                     <td class="whitespace-nowrap">{Math.round(item.cef).toLocaleString()}</td>
                     <td class="whitespace-nowrap">{Math.round(item.cep).toLocaleString()}</td>

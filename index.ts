@@ -1,8 +1,3 @@
-export * as Audit from './src/data/Audit'
-export * as Enveloppe from './src/data/Enveloppe'
-export * as Refroidissement from './src/data/Refroidissement'
-export * as Ventilation from './src/data/Ventilation'
-export * as Common from './src/data/Common'
 export { default as ConsommationsEnergie } from './src/components/ConsommationsEnergie.astro'
 export { default as ConsommationsUsage } from './src/components/ConsommationsUsage.astro'
 export { default as EtiquetteEnergie } from './src/components/EtiquetteEnergie.astro'
