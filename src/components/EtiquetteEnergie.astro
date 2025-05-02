@@ -1,20 +1,21 @@
 ---
-import { Audit } from 'dpe-audit'
-import EtiquetteEnergieA from "../images/etiquette-energie/etiquette-energie-a.svg";
-import EtiquetteEnergieB from "../images/etiquette-energie/etiquette-energie-b.svg";
-import EtiquetteEnergieC from "../images/etiquette-energie/etiquette-energie-c.svg";
-import EtiquetteEnergieD from "../images/etiquette-energie/etiquette-energie-d.svg";
-import EtiquetteEnergieE from "../images/etiquette-energie/etiquette-energie-e.svg";
-import EtiquetteEnergieF from "../images/etiquette-energie/etiquette-energie-f.svg";
-import EtiquetteEnergieG from "../images/etiquette-energie/etiquette-energie-g.svg";
+import { Audit } from "dpe-audit";
+import EtiquetteEnergieA from "../assets/etiquette-energie-a.svg";
+import EtiquetteEnergieB from "../assets/etiquette-energie-b.svg";
+import EtiquetteEnergieC from "../assets/etiquette-energie-c.svg";
+import EtiquetteEnergieD from "../assets/etiquette-energie-d.svg";
+import EtiquetteEnergieE from "../assets/etiquette-energie-e.svg";
+import EtiquetteEnergieF from "../assets/etiquette-energie-f.svg";
+import EtiquetteEnergieG from "../assets/etiquette-energie-g.svg";
 
 interface Props {
+    class?: string;
     etiquette_energie: Audit.EtiquetteEnergie;
 }
 
-const { etiquette_energie } = Astro.props;
+const { etiquette_energie, class: className = "" } = Astro.props;
 
-const Icon = ((etiquette_energie) => {
+const Image = ((etiquette_energie) => {
     switch (etiquette_energie) {
         case Audit.EtiquetteEnergie.A:
             return EtiquetteEnergieA;
@@ -34,10 +35,10 @@ const Icon = ((etiquette_energie) => {
 })(etiquette_energie);
 ---
 
-<Icon class="icon" />
+<Image class={className} />
 
 <style>
-    .icon {
+    svg {
         width: 100%;
         height: auto;
     }

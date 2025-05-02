@@ -2,11 +2,11 @@
 import { Enveloppe } from "dpe-audit";
 
 interface Props {
-    className?: string;
+    class?: string;
     ponts_thermiques: Array<Enveloppe.PontThermiqueWithData>;
 }
 
-const { ponts_thermiques, className = "" } = Astro.props;
+const { ponts_thermiques, class: className = "" } = Astro.props;
 
 const total = {
     longueur: ponts_thermiques.reduce((acc, item) => acc + item.longueur, 0),
@@ -32,7 +32,7 @@ const data = ponts_thermiques
 <table class={className}>
     <thead>
         <tr>
-            <th class="grow text-left">Description</th>
+            <th>Description</th>
             <th>Longueur</th>
             <th>K</th>
             <th>PT</th>
@@ -44,19 +44,15 @@ const data = ponts_thermiques
         {
             data.map((item) => (
                 <tr>
-                    <td class="grow text-left">
+                    <td>
                         {item.description.split("\n").map((line) => (
                             <p>{line}</p>
                         ))}
                     </td>
-                    <td class="whitespace-nowrap">
-                        {item.longueur.toFixed(2)}
-                    </td>
-                    <td class="whitespace-nowrap">{item.kpt.toFixed(2)}</td>
-                    <td class="whitespace-nowrap">{item.pt.toFixed(2)}</td>
-                    <td class="whitespace-nowrap font-semibold">
-                        {item.part.toFixed(2)} %
-                    </td>
+                    <td>{item.longueur.toFixed(2)}</td>
+                    <td>{item.kpt.toFixed(2)}</td>
+                    <td>{item.pt.toFixed(2)}</td>
+                    <td>{item.part.toFixed(2)} %</td>
                 </tr>
             ))
         }
@@ -64,57 +60,30 @@ const data = ponts_thermiques
 
     <tfoot>
         <tr>
-            <td class="text-left whitespace-nowrap">Total</td>
-            <td class="whitespace-nowrap">{total.longueur.toFixed(2)}</td>
+            <td>Total</td>
+            <td>{total.longueur.toFixed(2)}</td>
             <td>-</td>
-            <td class="whitespace-nowrap">{total.pt.toFixed(2)}</td>
-            <td class="whitespace-nowrap">100 %</td>
+            <td>{total.pt.toFixed(2)}</td>
+            <td>100 %</td>
         </tr>
     </tfoot>
 </table>
 
 <style>
-    table {
-        width: 100%;
-        max-width: 100%;
-        table-layout: auto;
-        border-collapse: collapse;
-    }
-    td {
-        span {
-            padding: 0.3rem;
-            font-weight: 600;
-            color: #ffffff;
-        }
-        &[data-performance="tres_bonne"] span {
-            background-color: #2caf85;
-        }
-        &[data-performance="bonne"] span {
-            background-color: #a5cc74;
-        }
-        &[data-performance="moyenne"] span {
-            background-color: #f49838;
-        }
-        &[data-performance="insuffisante"] span {
-            background-color: #e52322;
-        }
-    }
     th,
     td {
         text-align: center;
+        white-space: nowrap;
 
         &:first-child {
+            width: 100%;
+            text-align: left;
             padding-left: 0;
             padding-right: 0;
         }
-        p:not(:last-child) {
-            margin-bottom: 0.5rem;
-        }
     }
-    .text-left {
-        text-align: left;
-    }
-    .grow {
-        width: 100%;
+
+    tbody td:last-child {
+        font-weight: 600;
     }
 </style>

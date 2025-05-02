@@ -13,24 +13,9 @@
   );
 }
 
-body {
-  //background-color: var(--bg);
-  //color: var(--text);
-  font-family: 'Poppins';
+html {
   font-size: 0.9rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-th,
-td,
-svg {
-  //color: #1A1A1A;
+  font-family: 'Poppins';
 }
 
 .overflow-x-auto {
@@ -43,8 +28,8 @@ svg {
   }
 }
 
-
-ul, ol {
+ul,
+ol {
   list-style: initial;
   padding-left: 1.5rem;
 }

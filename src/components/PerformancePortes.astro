@@ -1,12 +1,13 @@
 ---
 import { Enveloppe } from "dpe-audit";
+import NiveauPerformanceElement from "./NiveauPerformanceElement.astro";
 
 interface Props {
-    className?: string;
+    class?: string;
     portes: Array<Enveloppe.PorteWithData>;
 }
 
-const { portes, className = "" } = Astro.props;
+const { portes, class: className = "" } = Astro.props;
 
 const total = {
     sdep: portes.reduce((acc, item) => acc + item.data.sdep, 0),
@@ -38,7 +39,7 @@ const data = portes
 <table class={className}>
     <thead>
         <tr>
-            <th class="grow text-left">Description</th>
+            <th>Description</th>
             <th>U</th>
             <th>SDEP</th>
             <th>DP</th>
@@ -50,20 +51,20 @@ const data = portes
         {
             data.map((item) => (
                 <tr>
-                    <td class="grow text-left">
+                    <td>
                         {item.description.split("\n").map((line) => (
                             <p>{line}</p>
                         ))}
                     </td>
-                    <td
-                        class="whitespace-nowrap"
-                        data-performance={item.performance}
-                    >
-                        <span>{item.u.toFixed(2)}</span>
+                    <td>
+                        <NiveauPerformanceElement
+                            performance={item.performance}
+                            texte={item.u.toFixed(2)}
+                        />
                     </td>
-                    <td class="whitespace-nowrap">{item.sdep.toFixed(2)}</td>
-                    <td class="whitespace-nowrap">{item.dp.toFixed(2)}</td>
-                    <td class="whitespace-nowrap font-semibold">
+                    <td>{item.sdep.toFixed(2)}</td>
+                    <td>{item.dp.toFixed(2)}</td>
+                    <td>
                         {item.part.toFixed(2)} %
                     </td>
                 </tr>
@@ -73,57 +74,30 @@ const data = portes
 
     <tfoot>
         <tr>
-            <td class="text-left whitespace-nowrap">Total</td>
+            <td>Total</td>
             <td>-</td>
-            <td class="whitespace-nowrap">{total.sdep.toFixed(2)}</td>
-            <td class="whitespace-nowrap">{total.dp.toFixed(2)}</td>
-            <td class="whitespace-nowrap">100 %</td>
+            <td>{total.sdep.toFixed(2)}</td>
+            <td>{total.dp.toFixed(2)}</td>
+            <td>100 %</td>
         </tr>
     </tfoot>
 </table>
 
 <style>
-    table {
-        width: 100%;
-        max-width: 100%;
-        table-layout: auto;
-        border-collapse: collapse;
-    }
-    td {
-        span {
-            padding: 0.3rem;
-            font-weight: 600;
-            color: #ffffff;
-        }
-        &[data-performance="tres_bonne"] span {
-            background-color: #2caf85;
-        }
-        &[data-performance="bonne"] span {
-            background-color: #a5cc74;
-        }
-        &[data-performance="moyenne"] span {
-            background-color: #f49838;
-        }
-        &[data-performance="insuffisante"] span {
-            background-color: #e52322;
-        }
-    }
     th,
     td {
         text-align: center;
+        white-space: nowrap;
 
         &:first-child {
+            width: 100%;
+            text-align: left;
             padding-left: 0;
             padding-right: 0;
         }
-        p:not(:last-child) {
-            margin-bottom: 0.5rem;
-        }
     }
-    .text-left {
-        text-align: left;
-    }
-    .grow {
-        width: 100%;
+
+    tbody td:last-child {
+        font-weight: 600;
     }
 </style>

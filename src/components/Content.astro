@@ -8,7 +8,7 @@ import PerformanceIsolation from "../contents/performance-isolation.md";
 import PerformanceIsolationParois from "../contents/performance-isolation-parois.md";
 
 interface Props {
-    className?: string;
+    class?: string;
     name:
         | "confort-ete"
         | "consommations-energie"
@@ -19,7 +19,7 @@ interface Props {
         | "performance-isolation-parois";
 }
 
-const { name, className = "" } = Astro.props;
+const { name, class: className = "" } = Astro.props;
 
 const Component = (() => {
     switch (name) {

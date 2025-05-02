@@ -1,0 +1,45 @@
+---
+import { Audit } from "dpe-audit";
+import ClasseClimatA from "../assets/classe-climat-a.svg";
+import ClasseClimatB from "../assets/classe-climat-b.svg";
+import ClasseClimatC from "../assets/classe-climat-c.svg";
+import ClasseClimatD from "../assets/classe-climat-d.svg";
+import ClasseClimatE from "../assets/classe-climat-e.svg";
+import ClasseClimatF from "../assets/classe-climat-f.svg";
+import ClasseClimatG from "../assets/classe-climat-g.svg";
+
+interface Props {
+    class?: string;
+    etiquette_climat: Audit.EtiquetteClimat;
+}
+
+const { etiquette_climat, class: className = "" } = Astro.props;
+
+const Icon = ((etiquette_climat) => {
+    switch (etiquette_climat) {
+        case Audit.EtiquetteClimat.A:
+            return ClasseClimatA;
+        case Audit.EtiquetteClimat.B:
+            return ClasseClimatB;
+        case Audit.EtiquetteClimat.C:
+            return ClasseClimatC;
+        case Audit.EtiquetteClimat.D:
+            return ClasseClimatD;
+        case Audit.EtiquetteClimat.E:
+            return ClasseClimatE;
+        case Audit.EtiquetteClimat.F:
+            return ClasseClimatF;
+        case Audit.EtiquetteClimat.G:
+            return ClasseClimatG;
+    }
+})(etiquette_climat);
+---
+
+<Icon class={className} />
+
+<style>
+    svg {
+        width: 100%;
+        height: auto;
+    }
+</style>

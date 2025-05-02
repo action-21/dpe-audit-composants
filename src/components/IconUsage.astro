@@ -7,11 +7,12 @@ import Eclairage from "../icons/eclairage.svg";
 import Auxiliaire from "../icons/auxiliaire.svg";
 
 interface Props {
+    class?: string;
     usage: Common.Usage;
     size?: number;
 }
 
-const { usage, size = 18 } = Astro.props;
+const { usage, size = 18, class: className = '' } = Astro.props;
 
 const Icon = ((usage) => {
     switch (usage) {
@@ -29,4 +30,4 @@ const Icon = ((usage) => {
 })(usage);
 ---
 
-<Icon width={size} height={size} />
+<Icon class={className} width={size} height={size} />

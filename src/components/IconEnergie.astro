@@ -1,5 +1,5 @@
 ---
-import { Common } from 'dpe-audit'
+import { Common } from "dpe-audit";
 import Bois from "../icons/bois.svg";
 import Electricite from "../icons/electricite.svg";
 import Fioul from "../icons/fioul.svg";
@@ -10,11 +10,12 @@ import ReseauChaleur from "../icons/reseau-chaleur.svg";
 import ReseauFroid from "../icons/reseau-froid.svg";
 
 interface Props {
+    class?: string;
     energie: Common.Energie;
     size?: number;
 }
 
-const { energie, size = 18 } = Astro.props;
+const { energie, size = 18, class: className = "" } = Astro.props;
 
 const Icon = ((energie) => {
     switch (energie) {
@@ -39,7 +40,7 @@ const Icon = ((energie) => {
         case Common.Energie.reseau_froid:
             return ReseauFroid;
     }
-})(energie)
+})(energie);
 ---
 
-<Icon width={size} height={size} />
+<Icon class={className} width={size} height={size} />

@@ -1,6 +1,6 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import { IndicateurConfortEte } from "~";
+import { NiveauConfortEte } from "~";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
@@ -16,7 +16,5 @@ const { confort_ete } = Astro.props;
         <DialogButton name="confort-ete" />
     </CardHeader>
 
-    <div class="max-w-[200px] m-auto">
-        <IndicateurConfortEte confort_ete={confort_ete} />
-    </div>
+    <NiveauConfortEte class="max-w-[200px] m-auto" confort_ete={confort_ete} />
 </Card>

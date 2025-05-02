@@ -6,9 +6,11 @@ import IconInsuffisant from "../icons/smiley-sad.svg";
 
 interface Props {
     confort_ete: Enveloppe.ConfortEte;
+    class?: string;
+    min?: boolean;
 }
 
-const { confort_ete } = Astro.props;
+const { confort_ete, min = false, class: className = "" } = Astro.props;
 
 const enums: Array<Enveloppe.ConfortEte> = [
     Enveloppe.ConfortEte.bon,
@@ -36,7 +38,7 @@ const Icon = ((confort_ete: Enveloppe.ConfortEte) => {
 })(confort_ete);
 ---
 
-<div class="confort-ete" data-performance={confort_ete}>
+<div class:list={["confort-ete", className]} data-performance={confort_ete}>
     {
         data.map((item) => (
             <div class:list={["confort-ete-item", { active: item.active }]}>

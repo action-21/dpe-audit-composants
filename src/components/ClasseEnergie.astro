@@ -1,0 +1,45 @@
+---
+import { Audit } from "dpe-audit";
+import ClasseEnergieA from "../assets/classe-energie-a.svg";
+import ClasseEnergieB from "../assets/classe-energie-b.svg";
+import ClasseEnergieC from "../assets/classe-energie-c.svg";
+import ClasseEnergieD from "../assets/classe-energie-d.svg";
+import ClasseEnergieE from "../assets/classe-energie-e.svg";
+import ClasseEnergieF from "../assets/classe-energie-f.svg";
+import ClasseEnergieG from "../assets/classe-energie-g.svg";
+
+interface Props {
+    class?: string;
+    etiquette_energie: Audit.EtiquetteEnergie;
+}
+
+const { etiquette_energie, class: className = "" } = Astro.props;
+
+const Icon = ((etiquette_energie) => {
+    switch (etiquette_energie) {
+        case Audit.EtiquetteEnergie.A:
+            return ClasseEnergieA;
+        case Audit.EtiquetteEnergie.B:
+            return ClasseEnergieB;
+        case Audit.EtiquetteEnergie.C:
+            return ClasseEnergieC;
+        case Audit.EtiquetteEnergie.D:
+            return ClasseEnergieD;
+        case Audit.EtiquetteEnergie.E:
+            return ClasseEnergieE;
+        case Audit.EtiquetteEnergie.F:
+            return ClasseEnergieF;
+        case Audit.EtiquetteEnergie.G:
+            return ClasseEnergieG;
+    }
+})(etiquette_energie);
+---
+
+<Icon class={className} />
+
+<style>
+    svg {
+        width: 100%;
+        height: auto;
+    }
+</style>

@@ -1,3 +1,7 @@
 :root {
+  --bg: #edf1f6;
+  --border: #edf1f6;
   --text-disabled: #f0f0f0;
+  --color-primary: #2C3EC4;
+  --color-secondary: #F43098;
 }

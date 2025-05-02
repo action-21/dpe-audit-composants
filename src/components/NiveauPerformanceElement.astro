@@ -1,0 +1,37 @@
+---
+import { Enveloppe } from "dpe-audit";
+
+interface Props {
+    class?: string;
+    performance: Enveloppe.Performance;
+    texte: string | number;
+}
+
+const { performance, texte, class: className = "" } = Astro.props;
+---
+
+<span class:list={[className]} data-value={performance}>
+    {texte}
+</span>
+
+<style>
+    span {
+        text-wrap: nowrap;
+        padding: 0.5rem;
+        color: #ffffff;
+        font-weight: 600;
+
+        &[data-value="tres_bonne"] {
+            background-color: #2caf85;
+        }
+        &[data-value="bonne"] {
+            background-color: #a5cc74;
+        }
+        &[data-value="moyenne"] {
+            background-color: #f49838;
+        }
+        &[data-value="insuffisante"] {
+            background-color: #e52322;
+        }
+    }
+</style>

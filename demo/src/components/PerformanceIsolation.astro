@@ -1,6 +1,6 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import { IndicateurIsolationEnveloppe } from "~";
+import { NiveauIsolationEnveloppe } from "~";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
@@ -16,7 +16,8 @@ const { performance } = Astro.props;
         <DialogButton name="performance-isolation" />
     </CardHeader>
 
-    <div class="max-w-[200px] m-auto">
-        <IndicateurIsolationEnveloppe performance={performance} />
-    </div>
+    <NiveauIsolationEnveloppe
+        class="max-w-[200px] m-auto"
+        performance={performance}
+    />
 </Card>

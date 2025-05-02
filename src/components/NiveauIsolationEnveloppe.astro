@@ -3,10 +3,11 @@ import { Enveloppe } from "dpe-audit";
 import Icon from "../icons/enveloppe.svg";
 
 interface Props {
+    class?: string;
     performance: Enveloppe.Performance;
 }
 
-const { performance } = Astro.props;
+const { performance, class: className = "" } = Astro.props;
 
 const performances: Array<Enveloppe.Performance> = [
     Enveloppe.Performance.tres_bonne,
@@ -24,7 +25,10 @@ const data = performances.map((item) => {
 });
 ---
 
-<div class="isolation-enveloppe" data-performance={performance}>
+<div
+    class:list={["isolation-enveloppe", className]}
+    data-performance={performance}
+>
     {
         data.map((item) => (
             <div
