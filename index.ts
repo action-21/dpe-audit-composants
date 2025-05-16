@@ -1,3 +1,5 @@
+export { default as ClasseEnergie } from './src/components/ClasseEnergie.astro'
+export { default as ClasseClimat } from './src/components/ClasseClimat.astro'
 export { default as ConsommationsEnergie } from './src/components/ConsommationsEnergie.astro'
 export { default as ConsommationsUsage } from './src/components/ConsommationsUsage.astro'
 export { default as EtiquetteEnergie } from './src/components/EtiquetteEnergie.astro'
