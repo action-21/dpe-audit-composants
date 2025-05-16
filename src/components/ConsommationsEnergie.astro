@@ -4,11 +4,9 @@ import Icon from "./IconEnergie.astro";
 
 interface Props {
     class?: string;
-    consommations: Consommation[];
+    consommations: Common.Consommation[];
     scenario?: Common.Scenario;
 }
-
-type Consommation = { evolution?: number } & Common.Consommation;
 
 const {
     consommations,
