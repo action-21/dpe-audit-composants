@@ -1,14 +1,15 @@
 ---
 import { Enveloppe } from "dpe-audit";
 import { NiveauConfortEte } from "~";
+import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    confort_ete: Enveloppe.ConfortEte;
+    confort_ete?: Enveloppe.ConfortEte;
 }
 
-const { confort_ete } = Astro.props;
+const { confort_ete = null } = Astro.props;
 ---
 
 <Card>
@@ -16,5 +17,14 @@ const { confort_ete } = Astro.props;
         <DialogButton name="confort-ete" />
     </CardHeader>
 
-    <NiveauConfortEte class="max-w-[200px] m-auto" confort_ete={confort_ete} />
+    {confort_ete == null && <Alert type="note" content="Non disponible" />}
+
+    {
+        confort_ete && (
+            <NiveauConfortEte
+                class="max-w-[200px] m-auto"
+                confort_ete={confort_ete}
+            />
+        )
+    }
 </Card>

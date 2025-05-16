@@ -1,14 +1,15 @@
 ---
 import { Common } from "dpe-audit";
 import { ConsommationsEnergie, ConsommationsUsage } from "~";
+import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { Caption } from "./Caption";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    consommations: Common.Consommation[];
+    consommations?: Common.Consommation[];
 }
-const { consommations } = Astro.props;
+const { consommations = null } = Astro.props;
 ---
 
 <Card>
@@ -16,21 +17,36 @@ const { consommations } = Astro.props;
         <DialogButton name="repartition-consommations" />
     </CardHeader>
 
-    <div class="grid gap-6">
-        <div class="overflow-hidden overflow-x-auto">
-            <ConsommationsUsage consommations={consommations} class="table" />
-        </div>
-        <div class="overflow-hidden overflow-x-auto">
-            <ConsommationsEnergie consommations={consommations} class="table" />
-        </div>
+    {consommations == null && <Alert type="note" content="Non disponible" />}
 
-        <Caption>
-            <ul>
-                <li><b>EF :</b> Consommation d'énergie finale en kWh/an</li>
-                <li><b>EP :</b> Consommation d'énergie primaire en kWh/an</li>
-            </ul>
-        </Caption>
-    </div>
+    {
+        consommations != null && (
+            <div class="grid gap-6">
+                <div class="overflow-hidden overflow-x-auto">
+                    <ConsommationsUsage
+                        consommations={consommations}
+                        class="table"
+                    />
+                </div>
+                <div class="overflow-hidden overflow-x-auto">
+                    <ConsommationsEnergie
+                        consommations={consommations}
+                        class="table"
+                    />
+                </div>
+
+                <Caption>
+                    <ul>
+                        <li>
+                            <b>EF :</b> Consommation d'énergie finale en kWh/an
+                        </li>
+                        <li>
+                            <b>EP :</b> Consommation d'énergie primaire en
+                            kWh/an
+                        </li>
+                    </ul>
+                </Caption>
+            </div>
+        )
+    }
 </Card>
-
-<style></style>

@@ -1,0 +1,14 @@
+---
+interface Props {
+    type: "note" | "warning" | "caution" | "important";
+    content: string;
+}
+
+const { type, content } = Astro.props;
+---
+
+<div class-list={["alert", type]}>
+    <div>
+        <p>{content}</p>
+    </div>
+</div>

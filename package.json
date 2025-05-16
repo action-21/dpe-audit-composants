@@ -1,7 +1,7 @@
 {
   "name": "dpe-audit-ui",
   "type": "module",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "exports": {
     ".": "./index.ts"
   },
@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "astro": "^5.5.3",
-    "dpe-audit": "^0.1.1"
+    "dpe-audit": "^0.2.5"
   }
 }

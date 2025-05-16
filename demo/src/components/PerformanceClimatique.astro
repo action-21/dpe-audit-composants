@@ -1,15 +1,16 @@
 ---
 import { Audit } from "dpe-audit";
 import { EtiquetteClimat } from "~";
+import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    etiquette_climat: Audit.EtiquetteClimat;
-    eges: number;
+    etiquette_climat?: Audit.EtiquetteClimat;
+    eges?: number;
 }
 
-const { etiquette_climat, eges } = Astro.props;
+const { etiquette_climat = null, eges = null } = Astro.props;
 ---
 
 <Card>
@@ -17,19 +18,27 @@ const { etiquette_climat, eges } = Astro.props;
         <DialogButton name="performance-climatique" />
     </CardHeader>
 
-    <div class="flex flex-nowrap items-center">
-        <div class="w-[200px]">
-            <EtiquetteClimat etiquette_climat={etiquette_climat} />
-        </div>
+    {etiquette_climat == null && <Alert type="note" content="Non disponible" />}
 
-        <div class="grow">
-            <div class="stats stats-vertical">
-                <div class="stat">
-                    <div class="stat-title">Emissions de CO2</div>
-                    <div class="stat-value text-primary">{eges.toFixed()}</div>
-                    <div class="stat-desc">kgCO2/m²/an</div>
+    {
+        etiquette_climat && (
+            <div class="flex flex-nowrap items-center">
+                <div class="w-[200px]">
+                    <EtiquetteClimat etiquette_climat={etiquette_climat} />
+                </div>
+
+                <div class="grow">
+                    <div class="stats stats-vertical">
+                        <div class="stat">
+                            <div class="stat-title">Emissions de CO2</div>
+                            <div class="stat-value text-primary">
+                                {eges ? eges.toFixed() : "-"}
+                            </div>
+                            <div class="stat-desc">kgCO2/m²/an</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        )
+    }
 </Card>

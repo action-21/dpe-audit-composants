@@ -34,26 +34,26 @@ const audit = $audit.get();
 						class="grid grid-rows-2 auto-rows-min md:grid-rows-1 md:grid-cols-2 lg:grid-cols-1 lg:grid-rows-2 gap-4"
 					>
 						<PerformanceEnergetique
-							etiquette_energie={audit.data.etiquette_energie}
-							cef={audit.data.cef}
-							cep={audit.data.cep}
+							etiquette_energie={audit.data?.etiquette_energie}
+							cef={audit.data?.cef}
+							cep={audit.data?.cep}
 						/>
 
 						<PerformanceClimatique
-							etiquette_climat={audit.data.etiquette_climat}
-							eges={audit.data.eges}
+							etiquette_climat={audit.data?.etiquette_climat}
+							eges={audit.data?.eges}
 						/>
 					</div>
 
 					<RepartitionDeperditions
-						deperditions={audit.enveloppe.data.deperditions}
+						deperditions={audit.enveloppe.data?.deperditions}
 					/>
 
 					<PerformanceIsolation
-						performance={audit.enveloppe.data.performance}
+						performance={audit.enveloppe.data?.performance}
 					/>
 
-					<ConfortEte confort_ete={audit.enveloppe.data.confort_ete} />
+					<ConfortEte confort_ete={audit.enveloppe.data?.confort_ete} />
 				</div>
 				<div class="grid lg:order-first auto-rows-min lg:col-span-2 gap-4">
 					<div class="hidden lg:block">
@@ -63,7 +63,7 @@ const audit = $audit.get();
 						/>
 					</div>
 
-					<Consommations consommations={audit.data.consommations} />
+					<Consommations consommations={audit.data?.consommations} />
 
 					<PerformanceEnveloppe
 						murs={audit.enveloppe.murs}
@@ -78,25 +78,25 @@ const audit = $audit.get();
 		</main>
 
 		<Dialog name="repartition-consommations">
-			<Content name="consommations-energie" className="markdown-body" />
+			<Content name="consommations-energie" class="markdown-body" />
 		</Dialog>
 		<Dialog name="performance-enveloppe">
-			<Content name="performance-isolation-parois" className="markdown-body" />
+			<Content name="performance-isolation-parois" class="markdown-body" />
 		</Dialog>
 		<Dialog name="performance-climatique">
-			<Content name="etiquette-energie" className="markdown-body" />
+			<Content name="etiquette-energie" class="markdown-body" />
 		</Dialog>
 		<Dialog name="performance-energetique">
-			<Content name="etiquette-climat" className="markdown-body" />
+			<Content name="etiquette-climat" class="markdown-body" />
 		</Dialog>
 		<Dialog name="repartition-deperditions">
-			<Content name="deperditions-thermiques" className="markdown-body" />
+			<Content name="deperditions-thermiques" class="markdown-body" />
 		</Dialog>
 		<Dialog name="confort-ete">
-			<Content name="confort-ete" className="markdown-body" />
+			<Content name="confort-ete" class="markdown-body" />
 		</Dialog>
 		<Dialog name="performance-isolation">
-			<Content name="performance-isolation" className="markdown-body" />
+			<Content name="performance-isolation" class="markdown-body" />
 		</Dialog>
 	)}
 </Layout>

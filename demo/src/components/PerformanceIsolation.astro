@@ -1,14 +1,15 @@
 ---
 import { Enveloppe } from "dpe-audit";
 import { NiveauIsolationEnveloppe } from "~";
+import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    performance: Enveloppe.Performance;
+    performance?: Enveloppe.Performance;
 }
 
-const { performance } = Astro.props;
+const { performance = null } = Astro.props;
 ---
 
 <Card>
@@ -16,8 +17,14 @@ const { performance } = Astro.props;
         <DialogButton name="performance-isolation" />
     </CardHeader>
 
-    <NiveauIsolationEnveloppe
-        class="max-w-[200px] m-auto"
-        performance={performance}
-    />
+    {performance == null && <Alert type="note" content="Non disponible" />}
+
+    {
+        performance && (
+            <NiveauIsolationEnveloppe
+                class="max-w-[200px] m-auto"
+                performance={performance}
+            />
+        )
+    }
 </Card>

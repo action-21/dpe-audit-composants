@@ -1,14 +1,15 @@
 ---
 import { Enveloppe } from "dpe-audit";
 import { SchemaRepartitionDeperditions } from "~";
+import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    deperditions: Enveloppe.Deperdition[];
+    deperditions?: Enveloppe.Deperdition[];
 }
 
-const { deperditions } = Astro.props;
+const { deperditions = null } = Astro.props;
 ---
 
 <Card>
@@ -16,7 +17,13 @@ const { deperditions } = Astro.props;
         <DialogButton name="repartition-deperditions" />
     </CardHeader>
 
-    <div class="max-w-[380px] m-auto">
-        <SchemaRepartitionDeperditions deperditions={deperditions} />
-    </div>
+    {deperditions == null && <Alert type="note" content="Non disponible" />}
+
+    {
+        deperditions && (
+            <div class="max-w-[380px] m-auto">
+                <SchemaRepartitionDeperditions deperditions={deperditions} />
+            </div>
+        )
+    }
 </Card>

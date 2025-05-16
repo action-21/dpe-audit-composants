@@ -4,14 +4,14 @@ import NiveauPerformanceElement from "./NiveauPerformanceElement.astro";
 
 interface Props {
     class?: string;
-    murs: Array<Enveloppe.MurWithData>;
+    murs: Array<Enveloppe.IMur>;
 }
 
 const { murs, class: className = "" } = Astro.props;
 
 const total = {
-    sdep: murs.reduce((acc, item) => acc + item.data.sdep, 0),
-    dp: murs.reduce((acc, item) => acc + item.data.dp, 0),
+    sdep: murs.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
+    dp: murs.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
 };
 
 const data = murs
@@ -33,15 +33,14 @@ const data = murs
 
         return {
             description: description,
-            part: (item.data.dp / total.dp) * 100,
-            isolation: item.isolation,
-            sdep: item.data.sdep,
-            dp: item.data.dp,
-            u: item.data.u,
-            performance: item.data.performance,
+            sdep: item.data?.sdep ?? null,
+            u: item.data?.u ?? null,
+            performance: item.data?.performance ?? null,
+            dp: item.data?.dp ?? null,
+            part: item.data?.dp ? (item.data.dp / total.dp) * 100 : null,
         };
     })
-    .sort((a, b) => (a.dp > b.dp ? -1 : 1));
+    .sort((a, b) => (a.dp && b.dp ? (a.dp > b.dp ? -1 : 1) : -1));
 ---
 
 <table class={className}>
@@ -65,14 +64,18 @@ const data = murs
                         ))}
                     </td>
                     <td>
-                        <NiveauPerformanceElement
-                            performance={item.performance}
-                            texte={item.u.toFixed(2)}
-                        />
+                        {item.performance && item.u ? (
+                            <NiveauPerformanceElement
+                                performance={item.performance}
+                                texte={item.u.toFixed(2)}
+                            />
+                        ) : (
+                            <span>-</span>
+                        )}
                     </td>
-                    <td>{item.sdep.toFixed(2)}</td>
-                    <td>{item.dp.toFixed(2)}</td>
-                    <td>{item.part.toFixed(2)} %</td>
+                    <td>{item.sdep ? item.sdep.toFixed(2) : "-"}</td>
+                    <td>{item.dp ? item.dp.toFixed(2) : "-"}</td>
+                    <td>{item.part ? `${item.part.toFixed(2)} %` : "-"}</td>
                 </tr>
             ))
         }

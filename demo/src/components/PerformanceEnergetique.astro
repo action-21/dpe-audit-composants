@@ -1,16 +1,17 @@
 ---
 import { Audit } from "dpe-audit";
 import { EtiquetteEnergie } from "~";
+import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    etiquette_energie: Audit.EtiquetteEnergie;
-    cef: number;
-    cep: number;
+    etiquette_energie?: Audit.EtiquetteEnergie;
+    cef?: number;
+    cep?: number;
 }
 
-const { etiquette_energie, cep, cef } = Astro.props;
+const { etiquette_energie = null, cep = null, cef = null } = Astro.props;
 ---
 
 <Card>
@@ -18,24 +19,42 @@ const { etiquette_energie, cep, cef } = Astro.props;
         <DialogButton name="performance-energetique" />
     </CardHeader>
 
-    <div class="flex flex-nowrap items-center">
-        <div class="w-[200px]">
-            <EtiquetteEnergie etiquette_energie={etiquette_energie} />
-        </div>
+    {
+        etiquette_energie == null && (
+            <Alert type="note" content="Non disponible" />
+        )
+    }
 
-        <div class="grow">
-            <div class="stats stats-vertical">
-                <div class="stat">
-                    <div class="stat-title">Consommation finale</div>
-                    <div class="stat-value text-primary">{cef.toFixed()}</div>
-                    <div class="stat-desc">kWh<sub>ef</sub>/m²/an</div>
+    {
+        etiquette_energie && (
+            <div class="flex flex-nowrap items-center">
+                <div class="w-[200px]">
+                    <EtiquetteEnergie etiquette_energie={etiquette_energie} />
                 </div>
-                <div class="stat">
-                    <div class="stat-title">Consommation primaire</div>
-                    <div class="stat-value text-primary">{cep.toFixed()}</div>
-                    <div class="stat-desc">kWh<sub>ep</sub>/m²/an</div>
+
+                <div class="grow">
+                    <div class="stats stats-vertical">
+                        <div class="stat">
+                            <div class="stat-title">Consommation finale</div>
+                            <div class="stat-value text-primary">
+                                {cef ? cef.toFixed() : "-"}
+                            </div>
+                            <div class="stat-desc">
+                                kWh<sub>ef</sub>/m²/an
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-title">Consommation primaire</div>
+                            <div class="stat-value text-primary">
+                                {cep ? cep.toFixed() : "-"}
+                            </div>
+                            <div class="stat-desc">
+                                kWh<sub>ep</sub>/m²/an
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        )
+    }
 </Card>

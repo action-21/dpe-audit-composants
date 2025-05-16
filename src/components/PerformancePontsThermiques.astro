@@ -3,14 +3,14 @@ import { Enveloppe } from "dpe-audit";
 
 interface Props {
     class?: string;
-    ponts_thermiques: Array<Enveloppe.PontThermiqueWithData>;
+    ponts_thermiques: Array<Enveloppe.IPontThermique>;
 }
 
 const { ponts_thermiques, class: className = "" } = Astro.props;
 
 const total = {
     longueur: ponts_thermiques.reduce((acc, item) => acc + item.longueur, 0),
-    pt: ponts_thermiques.reduce((acc, item) => acc + item.data.pt, 0),
+    pt: ponts_thermiques.reduce((acc, item) => acc + (item.data?.pt ?? 0), 0),
 };
 
 const data = ponts_thermiques
@@ -21,12 +21,12 @@ const data = ponts_thermiques
         return {
             description: description,
             longueur: item.longueur,
-            kpt: item.data.kpt,
-            pt: item.data.pt,
-            part: (item.data.pt / total.pt) * 100,
+            kpt: item.data?.kpt ?? null,
+            pt: item.data?.pt ?? null,
+            part: item.data?.pt ? (item.data.pt / total.pt) * 100 : null,
         };
     })
-    .sort((a, b) => (a.pt > b.pt ? -1 : 1));
+    .sort((a, b) => (a.pt && b.pt ? (a.pt > b.pt ? -1 : 1) : -1));
 ---
 
 <table class={className}>
@@ -50,9 +50,9 @@ const data = ponts_thermiques
                         ))}
                     </td>
                     <td>{item.longueur.toFixed(2)}</td>
-                    <td>{item.kpt.toFixed(2)}</td>
-                    <td>{item.pt.toFixed(2)}</td>
-                    <td>{item.part.toFixed(2)} %</td>
+                    <td>{item.kpt ? item.kpt.toFixed(2) : "-"}</td>
+                    <td>{item.pt ? item.pt.toFixed(2) : "-"}</td>
+                    <td>{item.part ? `${item.part.toFixed(2)} %` : "-"}</td>
                 </tr>
             ))
         }
