@@ -1,28 +1,28 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import NiveauPerformanceElement from "./NiveauPerformanceElement.astro";
+import PerformanceElement from "./PerformanceElement.astro";
 
 interface Props {
     class?: string;
-    portes: Array<Enveloppe.IPorte>;
+    planchers_bas: Array<Enveloppe.IPlancherBas>;
 }
 
-const { portes, class: className = "" } = Astro.props;
+const { planchers_bas, class: className = "" } = Astro.props;
 
 const total = {
-    sdep: portes.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
-    dp: portes.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
+    sdep: planchers_bas.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
+    dp: planchers_bas.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
 };
 
-const data = portes
+const data = planchers_bas
     .map((item) => {
         let description: string = item.description;
 
-        if (item.vitrage.taux_vitrage > 0) {
-            description += item.vitrage.type_vitrage
-                ? `\n${Enveloppe.Porte.typeVitrageToString(item.vitrage.type_vitrage)}`
-                : `\nVitrage inconnue`;
+        if (item.type_structure) {
+            description += `\n${Enveloppe.PlancherBas.typeStructureToString(item.type_structure)}`;
         }
+
+        description += `\n${Enveloppe.isolationToString(item.isolation)}`;
 
         return {
             description: description,
@@ -58,7 +58,7 @@ const data = portes
                     </td>
                     <td>
                         {item.performance && item.u ? (
-                            <NiveauPerformanceElement
+                            <PerformanceElement
                                 performance={item.performance}
                                 texte={item.u.toFixed(2)}
                             />

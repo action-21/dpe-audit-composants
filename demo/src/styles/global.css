@@ -11,6 +11,8 @@
     var(--color-base-content) 60%,
     transparent
   );
+  --color-primary: #2c3ec4;
+  --color-secondary: #f43098;
 }
 
 html {
@@ -32,4 +34,14 @@ ul,
 ol {
   list-style: initial;
   padding-left: 1.5rem;
+}
+
+.color-primary {
+  color: var(--color-primary);
+  fill: var(--color-primary);
+}
+
+.color-secondary {
+  color: var(--color-secondary);
+  fill: var(--color-secondary);
 }

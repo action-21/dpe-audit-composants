@@ -14,12 +14,12 @@ import { Caption } from "./Caption";
 import { DialogButton } from "./Dialog";
 
 interface Props {
-    murs: Array<Enveloppe.Mur>;
-    planchers_bas: Array<Enveloppe.PlancherBas>;
-    planchers_hauts: Array<Enveloppe.PlancherHaut>;
-    baies: Array<Enveloppe.Baie>;
-    portes: Array<Enveloppe.Porte>;
-    ponts_thermiques: Array<Enveloppe.PontThermique>;
+    murs: Array<Enveloppe.IMur>;
+    planchers_bas: Array<Enveloppe.IPlancherBas>;
+    planchers_hauts: Array<Enveloppe.IPlancherHaut>;
+    baies: Array<Enveloppe.IBaie>;
+    portes: Array<Enveloppe.IPorte>;
+    ponts_thermiques: Array<Enveloppe.IPontThermique>;
 }
 
 const {

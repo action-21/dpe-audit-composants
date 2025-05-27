@@ -1,29 +1,46 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import NiveauPerformanceElement from "./NiveauPerformanceElement.astro";
+import PerformanceElement from "./PerformanceElement.astro";
 
 interface Props {
     class?: string;
-    planchers_bas: Array<Enveloppe.IPlancherBas>;
+    baies: Array<Enveloppe.IBaie>;
 }
 
-const { planchers_bas, class: className = "" } = Astro.props;
+const { baies, class: className = "" } = Astro.props;
 
 const total = {
-    sdep: planchers_bas.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
-    dp: planchers_bas.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
+    sdep: baies.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
+    dp: baies.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
 };
 
-const data = planchers_bas
+const data = baies
     .map((item) => {
         let description: string = item.description;
 
-        if (item.type_structure) {
-            description += `\n${Enveloppe.PlancherBas.typeStructureToString(item.type_structure)}`;
+        if (item.vitrage?.type_vitrage) {
+            description += item.vitrage.type_vitrage
+                ? `\n${Enveloppe.Baie.typeVitrageToString(item.vitrage.type_vitrage)}`
+                : `\nVitrage inconnu`;
+
+            if (item.vitrage.nature_lame) {
+                description += ` - ${Enveloppe.Baie.natureLameToString(item.vitrage.nature_lame)}`;
+            }
+            if (item.vitrage.epaisseur_lame) {
+                description += ` - ${item.vitrage.epaisseur_lame} mm`;
+            }
+            if (item.vitrage.survitrage) {
+                description += item.vitrage.survitrage.type_survitrage
+                    ? `\n${Enveloppe.Baie.typeSurvitrageToString(
+                          item.vitrage.survitrage.type_survitrage,
+                      )}`
+                    : `\nSurvitrage inconnu`;
+
+                if (item.vitrage.survitrage.epaisseur_lame) {
+                    description += ` - ${item.vitrage.survitrage.epaisseur_lame} mm`;
+                }
+            }
         }
-
-        description += `\n${Enveloppe.isolationToString(item.isolation)}`;
-
         return {
             description: description,
             sdep: item.data?.sdep ?? null,
@@ -58,7 +75,7 @@ const data = planchers_bas
                     </td>
                     <td>
                         {item.performance && item.u ? (
-                            <NiveauPerformanceElement
+                            <PerformanceElement
                                 performance={item.performance}
                                 texte={item.u.toFixed(2)}
                             />

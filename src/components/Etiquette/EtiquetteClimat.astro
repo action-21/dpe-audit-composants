@@ -1,19 +1,20 @@
 ---
 import { Audit } from "dpe-audit";
-import EtiquetteClimatA from "../assets/etiquette-climat-a.svg";
-import EtiquetteClimatB from "../assets/etiquette-climat-b.svg";
-import EtiquetteClimatC from "../assets/etiquette-climat-c.svg";
-import EtiquetteClimatD from "../assets/etiquette-climat-d.svg";
-import EtiquetteClimatE from "../assets/etiquette-climat-e.svg";
-import EtiquetteClimatF from "../assets/etiquette-climat-f.svg";
-import EtiquetteClimatG from "../assets/etiquette-climat-g.svg";
+import EtiquetteClimatDefault from "../../assets/etiquette-climat.svg";
+import EtiquetteClimatA from "../../assets/etiquette-climat-a.svg";
+import EtiquetteClimatB from "../../assets/etiquette-climat-b.svg";
+import EtiquetteClimatC from "../../assets/etiquette-climat-c.svg";
+import EtiquetteClimatD from "../../assets/etiquette-climat-d.svg";
+import EtiquetteClimatE from "../../assets/etiquette-climat-e.svg";
+import EtiquetteClimatF from "../../assets/etiquette-climat-f.svg";
+import EtiquetteClimatG from "../../assets/etiquette-climat-g.svg";
 
 interface Props {
     class?: string;
-    etiquette_climat: Audit.EtiquetteClimat;
+    etiquette_climat?: Audit.EtiquetteClimat;
 }
 
-const { etiquette_climat, class: className = "" } = Astro.props;
+const { etiquette_climat = null, class: className = "" } = Astro.props;
 
 const Image = ((etiquette_climat) => {
     switch (etiquette_climat) {
@@ -31,6 +32,8 @@ const Image = ((etiquette_climat) => {
             return EtiquetteClimatF;
         case Audit.EtiquetteClimat.G:
             return EtiquetteClimatG;
+        default:
+            return EtiquetteClimatDefault;
     }
 })(etiquette_climat);
 ---

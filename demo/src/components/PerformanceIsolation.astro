@@ -1,6 +1,6 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import { NiveauIsolationEnveloppe } from "~";
+import { IsolationEnveloppe } from "~";
 import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
@@ -21,7 +21,7 @@ const { performance = null } = Astro.props;
 
     {
         performance && (
-            <NiveauIsolationEnveloppe
+            <IsolationEnveloppe
                 class="max-w-[200px] m-auto"
                 performance={performance}
             />

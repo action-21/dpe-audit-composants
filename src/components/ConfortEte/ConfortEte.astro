@@ -1,16 +1,15 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import IconBon from "../icons/smiley-happy.svg";
-import IconMoyen from "../icons/smiley-neutral.svg";
-import IconInsuffisant from "../icons/smiley-sad.svg";
+import IconBon from "../../icons/smiley-happy.svg";
+import IconMoyen from "../../icons/smiley-neutral.svg";
+import IconInsuffisant from "../../icons/smiley-sad.svg";
 
 interface Props {
-    confort_ete: Enveloppe.ConfortEte;
+    value: Enveloppe.ConfortEte;
     class?: string;
-    min?: boolean;
 }
 
-const { confort_ete, min = false, class: className = "" } = Astro.props;
+const { value, class: className = "" } = Astro.props;
 
 const enums: Array<Enveloppe.ConfortEte> = [
     Enveloppe.ConfortEte.bon,
@@ -22,12 +21,12 @@ const data = enums.map((item) => {
     return {
         value: item,
         text: Enveloppe.confortEteToString(item),
-        active: item === confort_ete,
+        active: item === value,
     };
 });
 
-const Icon = ((confort_ete: Enveloppe.ConfortEte) => {
-    switch (confort_ete) {
+const Icon = ((value) => {
+    switch (value) {
         case Enveloppe.ConfortEte.bon:
             return IconBon;
         case Enveloppe.ConfortEte.moyen:
@@ -35,14 +34,14 @@ const Icon = ((confort_ete: Enveloppe.ConfortEte) => {
         case Enveloppe.ConfortEte.insuffisant:
             return IconInsuffisant;
     }
-})(confort_ete);
+})(value);
 ---
 
-<div class:list={["confort-ete", className]} data-performance={confort_ete}>
+<div class:list={["confort-ete", className]} data-performance={value}>
     {
         data.map((item) => (
             <div class:list={["confort-ete-item", { active: item.active }]}>
-                {item.active && (
+                {item.active && Icon && (
                     <div class="confort-ete-icon">
                         <Icon width={72} height={72} />
                     </div>
@@ -110,6 +109,17 @@ const Icon = ((confort_ete: Enveloppe.ConfortEte) => {
     .active {
         .confort-ete-value {
             color: #ffffff;
+        }
+    }
+    .confort-ete.min {
+        .confort-ete-item:not(.active),
+        .confort-ete-icon {
+            display: none;
+        }
+
+        .confort-ete-value {
+            border-radius: calc(infinity * 1px);
+            text-transform: none;
         }
     }
 </style>

@@ -1,6 +1,6 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import { SchemaRepartitionDeperditions } from "~";
+import { DeperditionSchema } from "~";
 import { Alert } from "./Alert";
 import { Card, CardHeader } from "./Card";
 import { DialogButton } from "./Dialog";
@@ -22,7 +22,7 @@ const { deperditions = null } = Astro.props;
     {
         deperditions && (
             <div class="max-w-[380px] m-auto">
-                <SchemaRepartitionDeperditions deperditions={deperditions} />
+                <DeperditionSchema deperditions={deperditions} />
             </div>
         )
     }

@@ -1,6 +1,6 @@
 ---
 import { Common } from "dpe-audit";
-import Icon from "./IconUsage.astro";
+import IconUsage from "../Icon/IconUsage.astro";
 
 interface Props {
     class?: string;
@@ -60,7 +60,7 @@ const tableData = usages
             tableData.map((item) => (
                 <tr>
                     <td>
-                        <Icon usage={item.usage} />
+                        <IconUsage usage={item.usage} class="color-primary" />
                         {Common.usageToString(item.usage)}
                     </td>
                     <td>{Math.round(item.cef).toLocaleString()}</td>
@@ -100,7 +100,7 @@ const tableData = usages
         }
     }
 
-    tbody td:last-child {
+    tbody td:first-child, tbody td:last-child {
         font-weight: 600;
     }
 </style>

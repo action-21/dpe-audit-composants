@@ -1,35 +1,28 @@
 ---
 import { Enveloppe } from "dpe-audit";
-import NiveauPerformanceElement from "./NiveauPerformanceElement.astro";
+import PerformanceElement from "./PerformanceElement.astro";
 
 interface Props {
     class?: string;
-    murs: Array<Enveloppe.IMur>;
+    portes: Array<Enveloppe.IPorte>;
 }
 
-const { murs, class: className = "" } = Astro.props;
+const { portes, class: className = "" } = Astro.props;
 
 const total = {
-    sdep: murs.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
-    dp: murs.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
+    sdep: portes.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),
+    dp: portes.reduce((acc, item) => acc + (item.data?.dp ?? 0), 0),
 };
 
-const data = murs
+const data = portes
     .map((item) => {
         let description: string = item.description;
 
-        if (item.type_structure) {
-            description += `\n${Enveloppe.Mur.typeStructureToString(item.type_structure)}`;
-
-            if (item.epaisseur_structure) {
-                description += ` - ${item.epaisseur_structure} mm`;
-            }
+        if (item.vitrage.taux_vitrage > 0) {
+            description += item.vitrage.type_vitrage
+                ? `\n${Enveloppe.Porte.typeVitrageToString(item.vitrage.type_vitrage)}`
+                : `\nVitrage inconnue`;
         }
-        if (item.type_doublage) {
-            description += `\n${Enveloppe.Mur.typeDoublageToString(item.type_doublage)}`;
-        }
-
-        description += `\n${Enveloppe.isolationToString(item.isolation)}`;
 
         return {
             description: description,
@@ -65,7 +58,7 @@ const data = murs
                     </td>
                     <td>
                         {item.performance && item.u ? (
-                            <NiveauPerformanceElement
+                            <PerformanceElement
                                 performance={item.performance}
                                 texte={item.u.toFixed(2)}
                             />

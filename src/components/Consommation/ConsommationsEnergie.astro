@@ -1,6 +1,6 @@
 ---
 import { Common } from "dpe-audit";
-import Icon from "./IconEnergie.astro";
+import IconEnergie from "../Icon/IconEnergie.astro";
 
 interface Props {
     class?: string;
@@ -60,7 +60,7 @@ const tableData = energies
             tableData.map((item) => (
                 <tr>
                     <td>
-                        <Icon energie={item.energie} />
+                        <IconEnergie energie={item.energie} class="color-primary" />
                         {Common.energieToString(item.energie)}
                     </td>
                     <td>{Math.round(item.cef).toLocaleString()}</td>
@@ -100,7 +100,7 @@ const tableData = energies
         }
     }
 
-    tbody td:last-child {
+    tbody td:first-child, tbody td:last-child {
         font-weight: 600;
     }
 </style>
