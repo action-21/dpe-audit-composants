@@ -5,11 +5,11 @@ import IconMoyen from "../../icons/smiley-neutral.svg";
 import IconInsuffisant from "../../icons/smiley-sad.svg";
 
 interface Props {
-    value: Enveloppe.ConfortEte;
+    value?: Enveloppe.ConfortEte;
     class?: string;
 }
 
-const { value, class: className = "" } = Astro.props;
+const { value = null, class: className = "" } = Astro.props;
 
 const enums: Array<Enveloppe.ConfortEte> = [
     Enveloppe.ConfortEte.bon,

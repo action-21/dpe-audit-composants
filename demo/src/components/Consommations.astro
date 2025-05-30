@@ -17,10 +17,8 @@ const { consommations = null } = Astro.props;
         <DialogButton name="repartition-consommations" />
     </CardHeader>
 
-    {consommations == null && <Alert type="note" content="Non disponible" />}
-
     {
-        consommations != null && (
+        consommations ? (
             <div class="grid gap-6">
                 <div class="overflow-hidden overflow-x-auto">
                     <ConsommationsUsage
@@ -47,6 +45,8 @@ const { consommations = null } = Astro.props;
                     </ul>
                 </Caption>
             </div>
+        ) : (
+            <Alert type="note" content="Non disponible" />
         )
     }
 </Card>

@@ -1,0 +1,29 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<table class="table table-xs">
+    <caption>
+        {title}
+    </caption>
+
+    <tbody>
+        <slot />
+    </tbody>
+</table>
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        caption {
+            font-weight: 600;
+            padding: .5rem
+        }
+    }
+</style>

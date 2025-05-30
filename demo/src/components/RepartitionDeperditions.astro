@@ -17,13 +17,13 @@ const { deperditions = null } = Astro.props;
         <DialogButton name="repartition-deperditions" />
     </CardHeader>
 
-    {deperditions == null && <Alert type="note" content="Non disponible" />}
-
     {
-        deperditions && (
+        deperditions ? (
             <div class="max-w-[380px] m-auto">
                 <DeperditionSchema deperditions={deperditions} />
             </div>
+        ) : (
+            <Alert type="note" content="Non disponible" />
         )
     }
 </Card>

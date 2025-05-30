@@ -1,0 +1,31 @@
+---
+import { Audit } from "dpe-audit";
+import { Bilan, ConsommationsEnergie, ConsommationsUsage } from "./Comparaison";
+import { Card, CardHeader } from "./Card";
+import { DialogButton } from "./Dialog";
+import Deperditions from "./Comparaison/Deperditions.astro";
+import Performances from "./Comparaison/Performances.astro";
+
+interface Props {
+    origin: Audit.Audit;
+    target: Audit.Audit;
+}
+
+const { origin, target } = Astro.props;
+---
+
+<Card>
+    <CardHeader title="Comparaison">
+        <DialogButton name="comparaison" />
+    </CardHeader>
+
+    <Bilan origin={origin} target={target} />
+
+    <ConsommationsUsage origin={origin} target={target} />
+
+    <ConsommationsEnergie origin={origin} target={target} />
+
+    <Deperditions origin={origin} target={target} />
+
+    <Performances origin={origin} target={target} />
+</Card>

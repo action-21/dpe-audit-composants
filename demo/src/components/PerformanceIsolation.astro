@@ -17,14 +17,14 @@ const { performance = null } = Astro.props;
         <DialogButton name="performance-isolation" />
     </CardHeader>
 
-    {performance == null && <Alert type="note" content="Non disponible" />}
-
     {
-        performance && (
+        performance ? (
             <IsolationEnveloppe
                 class="max-w-[200px] m-auto"
                 performance={performance}
             />
+        ) : (
+            <Alert type="note" content="Non disponible" />
         )
     }
 </Card>

@@ -3,10 +3,10 @@ import { Enveloppe } from "dpe-audit";
 
 interface Props {
     class?: string;
-    ponts_thermiques: Array<Enveloppe.IPontThermique>;
+    ponts_thermiques?: Array<Enveloppe.IPontThermique>;
 }
 
-const { ponts_thermiques, class: className = "" } = Astro.props;
+const { ponts_thermiques = [], class: className = "" } = Astro.props;
 
 const total = {
     longueur: ponts_thermiques.reduce((acc, item) => acc + item.longueur, 0),

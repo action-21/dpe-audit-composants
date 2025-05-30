@@ -2,11 +2,11 @@
 import { Enveloppe } from "dpe-audit";
 
 interface Props {
-    deperditions: Enveloppe.Deperdition[];
+    deperditions?: Enveloppe.Deperdition[];
     class?: string;
 }
 
-const { deperditions, class: className = "" } = Astro.props;
+const { deperditions = [], class: className = "" } = Astro.props;
 
 const total = deperditions.reduce((acc, item) => acc + item.deperdition, 0);
 

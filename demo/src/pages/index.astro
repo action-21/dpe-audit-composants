@@ -12,6 +12,7 @@ import PerformanceEnveloppe from "../components/PerformanceEnveloppe.astro";
 import RepartitionDeperditions from "../components/RepartitionDeperditions.astro";
 import PerformanceIsolation from "../components/PerformanceIsolation.astro";
 import ConfortEte from "../components/ConfortEte.astro";
+import Comparaison from "src/components/Comparaison.astro";
 
 useFixtures();
 
@@ -62,6 +63,9 @@ const audit = $audit.get();
 							adresse={audit.adresse}
 						/>
 					</div>
+
+					<Comparaison origin={audit} target={audit} />
+
 
 					<Consommations consommations={audit.data?.consommations} />
 

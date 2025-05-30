@@ -4,10 +4,10 @@ import PerformanceElement from "./PerformanceElement.astro";
 
 interface Props {
     class?: string;
-    baies: Array<Enveloppe.IBaie>;
+    baies?: Array<Enveloppe.IBaie>;
 }
 
-const { baies, class: className = "" } = Astro.props;
+const { baies = [], class: className = "" } = Astro.props;
 
 const total = {
     sdep: baies.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),

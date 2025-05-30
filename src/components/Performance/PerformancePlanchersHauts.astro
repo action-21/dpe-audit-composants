@@ -4,10 +4,10 @@ import PerformanceElement from "./PerformanceElement.astro";
 
 interface Props {
     class?: string;
-    planchers_hauts: Array<Enveloppe.IPlancherHaut>;
+    planchers_hauts?: Array<Enveloppe.IPlancherHaut>;
 }
 
-const { planchers_hauts, class: className = "" } = Astro.props;
+const { planchers_hauts = [], class: className = "" } = Astro.props;
 
 const total = {
     sdep: planchers_hauts.reduce(

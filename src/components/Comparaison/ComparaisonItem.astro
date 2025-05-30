@@ -1,0 +1,31 @@
+---
+interface Props {
+    name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<tr>
+    <td><slot name="origin" /></td>
+    <td>{name}</td>
+    <td><slot name="target" /></td>
+</tr>
+
+<style>
+    tr td {
+        height: 38px;
+    }
+    tr td:first-child {
+        width: 25%;
+        text-align: left;
+    }
+    tr td:nth-child(2) {
+        width: 50%;
+        text-align: center;
+    }
+    tr td:last-child {
+        width: 25%;
+        text-align: right;
+    }
+</style>

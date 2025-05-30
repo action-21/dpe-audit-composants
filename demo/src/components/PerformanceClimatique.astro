@@ -18,10 +18,8 @@ const { etiquette_climat = null, eges = null } = Astro.props;
         <DialogButton name="performance-climatique" />
     </CardHeader>
 
-    {etiquette_climat == null && <Alert type="note" content="Non disponible" />}
-
     {
-        etiquette_climat && (
+        etiquette_climat ? (
             <div class="flex flex-nowrap items-center">
                 <div class="w-[200px]">
                     <EtiquetteClimat etiquette_climat={etiquette_climat} />
@@ -39,6 +37,8 @@ const { etiquette_climat = null, eges = null } = Astro.props;
                     </div>
                 </div>
             </div>
+        ) : (
+            <Alert type="note" content="Non disponible" />
         )
     }
 </Card>

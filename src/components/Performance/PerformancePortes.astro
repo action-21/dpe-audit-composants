@@ -4,10 +4,10 @@ import PerformanceElement from "./PerformanceElement.astro";
 
 interface Props {
     class?: string;
-    portes: Array<Enveloppe.IPorte>;
+    portes?: Array<Enveloppe.IPorte>;
 }
 
-const { portes, class: className = "" } = Astro.props;
+const { portes = [], class: className = "" } = Astro.props;
 
 const total = {
     sdep: portes.reduce((acc, item) => acc + (item.data?.sdep ?? 0), 0),

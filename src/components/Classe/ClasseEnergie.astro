@@ -37,11 +37,10 @@ const Icon = ((etiquette_energie) => {
 })(etiquette_energie);
 ---
 
-{Icon ? <Icon class={className} /> : "-"}
+{Icon ? <Icon class:list={["w-[38px]", className]} /> : "-"}
 
 <style>
     svg {
-        width: 100%;
         height: auto;
     }
 </style>

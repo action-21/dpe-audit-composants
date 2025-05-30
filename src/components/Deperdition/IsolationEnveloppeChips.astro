@@ -3,14 +3,14 @@ import { Enveloppe } from "dpe-audit";
 
 interface Props {
     class?: string;
-    value?: Enveloppe.ConfortEte;
+    value?: Enveloppe.Performance;
 }
 
 const { value = null, class: className = "" } = Astro.props;
-const text = value ? Enveloppe.confortEteToString(value) : "-";
+const text = value ? Enveloppe.performanceToString(value) : "-";
 ---
 
-<span class:list={[className]} data-value={value}>
+<span class:list={[className]} data-performance={value}>
     {text}
 </span>
 
@@ -22,15 +22,19 @@ const text = value ? Enveloppe.confortEteToString(value) : "-";
         font-weight: 600;
         border-radius: calc(infinity * 1px);
 
-        &[data-value="bon"] {
+        &[data-performance="tres_bonne"] {
             color: #ffffff;
             background-color: #2caf85;
         }
-        &[data-value="moyen"] {
+        &[data-performance="bonne"] {
+            color: #ffffff;
+            background-color: #a5cc74;
+        }
+        &[data-performance="moyenne"] {
             color: #ffffff;
             background-color: #f49838;
         }
-        &[data-value="insuffisant"] {
+        &[data-performance="insuffisante"] {
             color: #ffffff;
             background-color: #e52322;
         }

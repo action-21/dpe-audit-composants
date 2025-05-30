@@ -20,13 +20,7 @@ const { etiquette_energie = null, cep = null, cef = null } = Astro.props;
     </CardHeader>
 
     {
-        etiquette_energie == null && (
-            <Alert type="note" content="Non disponible" />
-        )
-    }
-
-    {
-        etiquette_energie && (
+        etiquette_energie ? (
             <div class="flex flex-nowrap items-center">
                 <div class="w-[200px]">
                     <EtiquetteEnergie etiquette_energie={etiquette_energie} />
@@ -55,6 +49,8 @@ const { etiquette_energie = null, cep = null, cef = null } = Astro.props;
                     </div>
                 </div>
             </div>
+        ) : (
+            <Alert type="note" content="Non disponible" />
         )
     }
 </Card>
